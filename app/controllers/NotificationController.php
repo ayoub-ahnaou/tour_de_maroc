@@ -1,17 +1,36 @@
 <?php
+namespace TourDeMaroc\App\Controllers;
 
-class NotificationController extends Controller {
+class NotificationController {
     private $notificationModel;
 
-    public function __construct($db) {
-        $this->notificationModel = new NotificationModel($db);
+    public function __construct($notificationModel) {
+        $this->notificationModel = $notificationModel;
     }
 
-    public function fetchNotifications($receiver_id) {
-        return $this->notificationModel->getNotificationsByUser($receiver_id);
+    public function getNotifications() {
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Not authenticated']);
+            return;
+        }
+        
+        $notifications = $this->notificationModel->getNotificationsForUser($_SESSION['user_id']);
+        echo json_encode(['notifications' => $notifications]);
     }
 
-    public function addNotification($content, $receiver_id, $etape_id = null) {
-        return $this->notificationModel->addNotification($content, $receiver_id, $etape_id);
+    public function subscribeToStage() {
+        if (!isset($_SESSION['user_id']) || !isset($_POST['etape_id'])) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid request']);
+            return;
+        }
+
+        $success = $this->notificationModel->subscribeToEtape(
+            $_SESSION['user_id'], 
+            $_POST['etape_id']
+        );
+
+        echo json_encode(['success' => $success]);
     }
 }
