@@ -1,6 +1,8 @@
+<?php
+use TourDeMaroc\App\Libraries\Session;
+?>
 <nav class="bg-gray-600 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto px-4 flex items-center justify-between h-16">
-        <!-- Left Section: Logo -->
         <div class="flex items-center">
             <a href="<?= URL_ROOT . "/"; ?>" class="text-yellow-300 text-lg font-bold flex items-center">
                 Tour de maroc
@@ -9,7 +11,8 @@
         </div>
         
         <div class="flex max-md:hidden items-center space-x-4 relative">
-            <?php if (isset($_SESSION['user_id'])): ?>
+            <?php $session = Session::getInstance(); ?>
+            <?php if ($session->isLoggedIn()): ?>
                 <div class="relative">
                     <button id="notificationButton" class="flex items-center gap-2 focus:outline-none">
                         <img src="<?= URL_ROOT; ?>/public/assets/icons/notification.svg" class="h-5" alt="">
@@ -21,7 +24,7 @@
                 </div>
                 <a href="<?= URL_ROOT . "/profile"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
-                    <span class="text-xs"><?= htmlspecialchars($_SESSION['nom_utilisateur'] ?? 'User') ?></span>
+                    <span class="text-xs"><?= htmlspecialchars($session->getUsername() ?? 'User') ?></span>
                 </a>
             <?php else: ?>
                 <a href="<?= URL_ROOT . "/login"; ?>" class="flex items-center gap-2">
@@ -32,6 +35,7 @@
         </div>
     </div>
 </nav>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const notificationButton = document.getElementById('notificationButton');
@@ -74,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', (event) => {
         if (!notificationButton?.contains(event.target) && 
             !notificationsDropdown?.contains(event.target)) {
@@ -82,14 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Load notifications every minute
     if (notificationButton) {
         loadNotifications();
         setInterval(loadNotifications, 60000);
     }
 });
 
-// Add this function to handle stage subscriptions
 function subscribeToStage(etapeId) {
     fetch('<?= URL_ROOT ?>/notifications/subscribe', {
         method: 'POST',
@@ -101,7 +102,6 @@ function subscribeToStage(etapeId) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // You can show a success message here
             alert('Successfully subscribed to stage notifications');
         }
     })
