@@ -16,14 +16,14 @@ CREATE TABLE Etape (
     lieu_de_depart VARCHAR(255) NOT NULL,
     lieu_d_arrivee VARCHAR(255) NOT NULL,
     distance DECIMAL(10, 2) NOT NULL CHECK (distance > 0),
-    date DATE NOT NULL,
+    date DATE NOT NULL,    
     region VARCHAR(255),
     difficulte VARCHAR(50),
     course_id INT NOT NULL REFERENCES Course(course_id) ON DELETE CASCADE,
     categorie_id INT NOT NULL REFERENCES Categorie(categorie_id) ON DELETE CASCADE
 );
 
--- Utilisateur Table (Parent Table)
+-- Base Utilisateur Table
 CREATE TABLE Utilisateur (
     utilisateur_id SERIAL PRIMARY KEY,
     nom_utilisateur VARCHAR(255) NOT NULL UNIQUE,
@@ -32,45 +32,37 @@ CREATE TABLE Utilisateur (
     role VARCHAR(50) NOT NULL
 );
 
--- Administrateur Table (Child of Utilisateur)
+-- Child tables inheriting from Utilisateur
 CREATE TABLE Administrateur (
-    administrateur_id INT PRIMARY KEY REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE
-);
+) INHERITS (Utilisateur);
 
--- Fan Table (Child of Utilisateur)
 CREATE TABLE Fan (
-    fan_id INT PRIMARY KEY REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE
-);
+) INHERITS (Utilisateur);
 
--- Cycliste Table (Child of Utilisateur)
 CREATE TABLE Cycliste (
-    cycliste_id INT PRIMARY KEY REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
     equipe VARCHAR(255),
     date_de_naissance DATE,
     nationalite VARCHAR(255),
     taille DECIMAL(5, 2),
     photo VARCHAR(255),
     poids DECIMAL(5, 2)
-);
+) INHERITS (Utilisateur);
 
--- Publication Table (Parent Table)
+-- Base Publication Table
 CREATE TABLE Publication (
     publication_id SERIAL PRIMARY KEY,
     auteur_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
     contenu TEXT NOT NULL
 );
 
--- PublicationVideo Table (Child of Publication)
+-- Child tables inheriting from Publication
 CREATE TABLE PublicationVideo (
-    video VARCHAR(255) NOT NULL,
-    publication_id INT PRIMARY KEY REFERENCES Publication(publication_id) ON DELETE CASCADE
-);
+    video VARCHAR(255) NOT NULL
+) INHERITS (Publication);
 
--- PublicationArticle Table (Child of Publication)
 CREATE TABLE PublicationArticle (
-    article TEXT NOT NULL,
-    publication_id INT PRIMARY KEY REFERENCES Publication(publication_id) ON DELETE CASCADE
-);
+    article TEXT NOT NULL
+) INHERITS (Publication);
 
 -- Notification Table
 CREATE TABLE Notification (
@@ -91,7 +83,7 @@ CREATE TABLE Commentaire (
 CREATE TABLE Question (
     question_id SERIAL PRIMARY KEY,
     auteur_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
-    cycliste_id INT NOT NULL REFERENCES Cycliste(cycliste_id) ON DELETE CASCADE,
+    cycliste_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
     contenu TEXT NOT NULL,
     reponse TEXT
 );
@@ -106,8 +98,8 @@ CREATE TABLE J_aime (
 -- Soutien Table
 CREATE TABLE Soutien (
     soutien_id SERIAL PRIMARY KEY,
-    fan_id INT NOT NULL REFERENCES Fan(fan_id) ON DELETE CASCADE,
-    cycliste_id INT NOT NULL REFERENCES Cycliste(cycliste_id) ON DELETE CASCADE
+    fan_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
+    cycliste_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE
 );
 
 -- Badge Table
@@ -119,7 +111,7 @@ CREATE TABLE Badge (
 -- Fan_Badge Table
 CREATE TABLE Fan_Badge (
     fan_badge_id SERIAL PRIMARY KEY,
-    fan_id INT NOT NULL REFERENCES Fan(fan_id) ON DELETE CASCADE,
+    fan_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
     badge_id INT NOT NULL REFERENCES Badge(badge_id) ON DELETE CASCADE
 );
 
@@ -142,7 +134,7 @@ CREATE TABLE Historique (
 -- Cycliste_Etape Table
 CREATE TABLE Cycliste_Etape (
     cycliste_etape_id SERIAL PRIMARY KEY,
-    cycliste_id INT NOT NULL REFERENCES Cycliste(cycliste_id) ON DELETE CASCADE,
+    cycliste_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE,
     etape_id INT NOT NULL REFERENCES Etape(etape_id) ON DELETE CASCADE,
     temps INTERVAL NOT NULL
 );
