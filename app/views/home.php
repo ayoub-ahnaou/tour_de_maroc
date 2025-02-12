@@ -14,7 +14,7 @@
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
+    <div class="relative container mx-auto px-6 h-full flex flex-col justify-center">
         <!-- Date -->
         <div class="absolute top-8 right-8">
             <p class="text-white text-xl font-semibold">05 May, 2025</p>
@@ -134,6 +134,29 @@
         </div>
     </div>
 </div>
+
+<div class="bg-gray-200 h-12"></div>
+
+<section class="bg-gray-50">
+    <div class="w-full">
+        <!-- Search Container -->
+        <div class="bg-white shadow-lg p-6">
+            <!-- Main Search Bar -->
+            <div class="relative mb-6 flex">
+                <input
+                    type="text"
+                    placeholder="Rechercher des événements, étapes, coureurs..."
+                    class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-3 top-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <button class="px-6 py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white font-medium">
+                    Rechercher
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 max-w-6xl">
