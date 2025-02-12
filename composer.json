@@ -1,0 +1,15 @@
+{
+    "name": "ayuub/tour_de_maroc",
+    "autoload": {
+        "psr-4": {
+            "TourDeMaroc\\App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ayoub-ahnaou",
+            "email": "ayoubahnaou@gmail.com"
+        }
+    ],
+    "require": {}
+}
