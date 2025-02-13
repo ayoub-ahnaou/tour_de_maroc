@@ -8,9 +8,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Plateforme digitale pour le \"Tour de Maroc\", permettant aux fans de suivre les étapes, aux cyclistes de partager leurs parcours, et aux organisateurs de gérer l'événement efficacement.",
   "dependencies": {
     "@tailwindcss/cli": "^4.0.6",
+    "@tailwindcss/vite": "^4.0.6",
+    "install": "^0.13.0",
     "tailwindcss": "^4.0.6"
   }
 }

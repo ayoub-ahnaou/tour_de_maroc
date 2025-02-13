@@ -1,9 +1,9 @@
 <?php
 
 define("HOST_NAME", "localhost");
-define("DATABASE_NAME", "tour_de_maroc_db");
+define("DATABASE_NAME", "tour");
 define("USER_NAME", "postgres");
-define("PASSWORD", "password");
+define("PASSWORD", "etrichi");
 
 define("URL_ROOT", "http://localhost/tour_de_maroc");
 define('APP_ROOT', dirname(dirname(__FILE__)));
