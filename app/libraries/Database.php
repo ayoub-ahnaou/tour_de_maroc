@@ -1,8 +1,6 @@
 <?php
-namespace Youdemy\Config;
 
-use Exception;
-use PDO;
+
 
 class Database {
     private PDO $connection;

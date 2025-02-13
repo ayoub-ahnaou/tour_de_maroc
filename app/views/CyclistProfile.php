@@ -1,6 +1,5 @@
 
 <?php require_once "./components/header.php";
-var_dump($data);
 ?>
 
 <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-6 shadow-lg">
