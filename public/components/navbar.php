@@ -27,7 +27,7 @@ use TourDeMaroc\App\Libraries\Session;
                     <span class="text-xs">Profile</span>
                 </a>
             <?php else: ?>
-                <a href="<?= URL_ROOT . "/categorieVisiteur"; ?>" class="flex items-center gap-2">
+                <a href="<?= URL_ROOT . "/courseVisiteur"; ?>" class="flex items-center gap-2">
                     <!-- <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt=""> -->
                     <span class="text-xs">Explorer Plus</span>
                 </a>
