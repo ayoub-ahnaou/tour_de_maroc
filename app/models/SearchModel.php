@@ -11,24 +11,29 @@ class SearchModel {
     }
 
     public function search($query) {
-        $etapes = $this->searchInEtapes($query);
-        $cyclistes = $this->searchInCyclistes($query);
-        if(sizeof($etapes) > 0 && sizeof($etapes) > 0) return [$etapes, $cyclistes];
-        elseif(sizeof($etapes) > 0) return $etapes;
-        elseif(sizeof($cyclistes) > 0) return $cyclistes;
-    }
-
-    public function searchInEtapes($query) {
-        $sql = "SELECT * FROM etape WHERE lieu_de_depart LIKE :query OR lieu_d_arrivee LIKE :query OR difficulte LIKE :query";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':query' => "%$query%"]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function searchInCyclistes($query) {
-        $sql = "SELECT * FROM cycliste WHERE nom_utilisateur LIKE :query OR equipe LIKE :query OR nationalite LIKE :query";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([':query' => "%$query%"]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = [];
+    
+        $searchables = [
+            'cyclistes' => ['table' => 'cycliste', 'columns' => ['nom_utilisateur', 'equipe', 'nationalite']],
+            'etapes' => ['table' => 'etape', 'columns' => ['lieu_de_depart', 'lieu_d_arrivee', 'region', 'difficulte']]
+        ];
+    
+        foreach ($searchables as $type => $data) {
+            $table = $data['table'];
+            $columns = $data['columns'];
+    
+            $whereClauses = array_map(fn($col) => "$col LIKE :query", $columns);
+            $whereSql = implode(" OR ", $whereClauses);
+    
+            $sql = "SELECT * FROM $table WHERE $whereSql";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':query' => "%$query%"]);
+            $fetchedResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            if (!empty($fetchedResults)) {
+                $results[] = ["results" => $fetchedResults, "type" => $type];
+            }
+        }
+        return $results;
     }
 }
