@@ -13,10 +13,8 @@ class SearchController extends Controller {
             }
 
             $searchModel = new SearchModel();
-
             $results = $searchModel->search($query);
-
-            $data = compact("search", "query");
+            $data = compact("results", "query");
 
             $this->view('search/results', $data);
         } else {
