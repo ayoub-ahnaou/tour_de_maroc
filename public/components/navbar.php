@@ -3,7 +3,7 @@ require_once '../config/config.php';
 require_once '../app/models/NotificationModel.php';
 
 
-session_start();
+//session_start();
 
 $db = new \PDO("pgsql:host=" . HOST_NAME . ";dbname=" . DATABASE_NAME, USER_NAME, PASSWORD);
 

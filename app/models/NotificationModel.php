@@ -1,6 +1,6 @@
 <?php
 
-use PDO;
+//use PDO;
 
 class NotificationModel {
     private $db;
