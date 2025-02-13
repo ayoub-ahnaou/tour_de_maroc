@@ -1,5 +1,5 @@
 <?php
-namespace Youdemy\Config;
+namespace TourDeMaroc\App\libraries;
 
 use Exception;
 use PDO;
@@ -13,7 +13,6 @@ class Database {
             $this->connection = new PDO("pgsql:host=". HOST_NAME .";dbname=". DATABASE_NAME, USER_NAME, PASSWORD);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            echo "Connection established with succes";
         } catch (Exception $e) {
             throw new Exception("Connection failed: " . $e->getMessage());
         }

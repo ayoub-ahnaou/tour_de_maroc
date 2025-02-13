@@ -23,6 +23,8 @@ CREATE TABLE Etape (
     categorie_id INT NOT NULL REFERENCES Categorie(categorie_id) ON DELETE CASCADE
 );
 
+ALTER TABLE Etape ADD COLUMN ordre INTEGER UNIQUE; -- e.g: etape 1, etape 2, etape 3, ...
+
 -- Base Utilisateur Table
 CREATE TABLE Utilisateur (
     utilisateur_id SERIAL PRIMARY KEY,
