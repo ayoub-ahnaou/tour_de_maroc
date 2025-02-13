@@ -1,5 +1,6 @@
 <?php
 
+
 class Controller {
     public function modal($model) {
         require_once "../app/models/" . $model . ".php";
