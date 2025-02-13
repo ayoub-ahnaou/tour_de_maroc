@@ -1,9 +1,7 @@
 <?php
 
 use TourDeMaroc\App\Entity\Cycliste;
-
-require_once '../app/libraries/Database.php';
-
+use TourDeMaroc\App\libraries\Database;
 
 class CyclistModel
 {
@@ -33,6 +31,6 @@ class CyclistModel
             $result['photo'],
             $result['poids']
         );
-
+        
     }
 }
