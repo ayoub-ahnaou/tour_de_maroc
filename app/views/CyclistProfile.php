@@ -1,6 +1,6 @@
 
 <?php require_once "./components/header.php";
-
+var_dump($data);
 ?>
 
 <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-6 shadow-lg">
@@ -13,7 +13,7 @@
     <div class="bg-white rounded-xl shadow-2xl overflow-hidden mb-12">
         <div class="md:flex">
             <div class="md:flex-shrink-0 relative">
-                <img class="h-96 w-full object-cover md:w-96" src="https://via.placeholder.com/600x900" alt="Tadej Pogačar">
+                <img class="h-96 w-full object-cover md:w-96" src="<?php echo $data['photo']?>" alt="Tadej Pogačar">
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-6">
                     <h2 class="text-4xl font-bold leading-tight"><?php echo $data['name']?></h2>
                     <p class="text-xl mt-2"><?php $data['name']?></p>
@@ -29,20 +29,22 @@
                     </p>
                 </div>
                 <div class="grid grid-cols-2 gap-4 text-center">
+
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">26</p>
-                        <p class="text-gray-600">Âge</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['birth_date']?></p>
+                        <p class="text-gray-600">La date de naicance</p>
                     </div>
+
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">1.76m</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['height']?></p>
                         <p class="text-gray-600">Taille</p>
                     </div>
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">66kg</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['weight']?></p>
                         <p class="text-gray-600">Poids</p>
                     </div>
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">🇸🇮</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['nationality']?></p>
                         <p class="text-gray-600">Nationalité</p>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+require_once '../app/Entity/Cycliste.php';
 
 
 class CyclistController extends Controller
@@ -7,14 +8,24 @@ class CyclistController extends Controller
 
     public function __construct()
     {
-
         $this->CylistModel = $this->modal('CyclistModel');
     }
 
     public function CyclistProfile($id)
     {
-        $CylistDetails = $this->CylistModel->getCyclistById($id);
-        $data = ["name" => "Test", 'Age' => '23'];
+
+        $Cylist = $this->CylistModel->getCyclistById($id);
+        $data = [
+            "name" => $Cylist->getNomUtilisateur(),
+            "email" => $Cylist->getEmail(),
+            "role" => $Cylist->getRole(),
+            "team" => $Cylist->getEquipe(),
+            "birth_date" => $Cylist->getDateDeNaissance(),
+            "nationality" => $Cylist->getNationalite(),
+            "height" => $Cylist->getTaille(),
+            "weight" => $Cylist->getPoids(),
+            "photo" => $Cylist->getPhoto()
+        ];
         $this->view('CyclistProfile', $data);
     }
 
