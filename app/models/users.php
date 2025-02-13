@@ -1,7 +1,6 @@
 <?php 
 namespace TourDeMaroc\App\models;
-use TourDeMaroc\App\libraries\database;
-require_once '../App/libraries/msg.php';
+use TourDeMaroc\App\libraries\Database;
 $messages = [
    'success' => [
        'message' => 'Connexion réussie !',
@@ -48,7 +47,7 @@ class users{
 
      public function VerifyEmail($email) {
       try {
-          $db = database::getInstance()->getConnection();
+          $db = Database::getInstance()->getConnection();
           $sql = "SELECT COUNT(*) FROM utilisateur WHERE email = :email";
           $stmt = $db->prepare($sql);
           $stmt->bindParam(":email", $email);

@@ -12,7 +12,12 @@ class Core {
 
         if(isset($url[0])){
             if(file_exists("../app/controllers/" . ucwords($url[0]) . "Controller.php")) {
-                $this->currentController = ucwords($url[0]);
+                // $this->currentController = ucwords($url[0]);
+                // Après :
+$controllerName = ucwords($url[0]);
+if(file_exists("../app/controllers/" . $controllerName . "Controller.php")) {
+    $this->currentController = $controllerName;
+}
                 unset($url[0]);
             }
         }
@@ -22,6 +27,9 @@ class Core {
 
         $controllerClass = "TourDeMaroc\\App\\controllers\\" . $this->currentController . "Controller";
         $this->currentController = new $controllerClass();
+
+        // $controllerClass = "TourDeMaroc\\App\\controllers\\" . $this->currentController . "Controller";
+        // $this->currentController = new $controllerClass();
 
         if(isset($url[1])) {
             if(method_exists($this->currentController, $url[1])) {

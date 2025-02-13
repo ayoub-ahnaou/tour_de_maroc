@@ -1,7 +1,4 @@
 <?php
-namespace TourDeMaroc\App\controllers;
-
-use TourDeMaroc\App\libraries\Controller;
 use TourDeMaroc\App\models\users;
 
 class SignupController extends controller {

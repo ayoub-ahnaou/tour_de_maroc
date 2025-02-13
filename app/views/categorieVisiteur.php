@@ -51,7 +51,7 @@
                 <!-- Titre de la catégorie -->
                 <div class="p-4">
                     <h2 class="text-xl font-bold mb-2">
-                        <?= htmlspecialchars($categorie->getNom()) ?>
+                        <?= htmlspecialchars($course->getNom()) ?>
                     </h2>
                     
                     <!-- Bouton voir plus -->
