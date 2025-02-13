@@ -41,14 +41,14 @@
                     <?php foreach($etapes as $etape) : ?>
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">#<?= $etape->getId(); ?></td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">Etape <?= "1"; ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">Etape <?= $etape->getOrdre(); ?></td>
                         <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getLieuDeDepart(); ?></td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">Oujda</td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">203 KM</td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">Defficile</td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">05/05</td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">2h 45min</td>
-                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900">Sahara</td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getLieuDarrivee(); ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getDistance(); ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getDifficulte(); ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getDate(); ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getDuree(); ?></td>
+                        <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-900"><?= $etape->getCategorieId(); ?></td>
                         <td class="px-6 py-1 whitespace-nowrap text-sm text-gray-500">
                             <div class="flex gap-2">
                                 <a href="<?php echo URL_ROOT ?>/etapes/editEtape/2" class="p-1 hover:text-blue-600">

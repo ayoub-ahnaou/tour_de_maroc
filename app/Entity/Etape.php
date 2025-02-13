@@ -13,7 +13,10 @@ class Etape {
     private $course_id;
     private $categorie_id;
 
-    public function __construct($lieu_de_depart, $lieu_d_arrivee, $distance, $date, $course_id, $categorie_id, $region = null, $difficulte = null, $etape_id = null) {
+    private $ordre;
+    private $duree;
+
+    public function __construct($lieu_de_depart, $lieu_d_arrivee, $distance, $date, $course_id, $categorie_id, $region = null, $difficulte = null, $etape_id = null, $ordre, $duree) {
         $this->etape_id = $etape_id;
         $this->lieu_de_depart = $lieu_de_depart;
         $this->lieu_d_arrivee = $lieu_d_arrivee;
@@ -23,6 +26,8 @@ class Etape {
         $this->difficulte = $difficulte;
         $this->course_id = $course_id;
         $this->categorie_id = $categorie_id;
+        $this->ordre = $ordre;
+        $this->duree = $duree;
     }
 
     public function getId() {
@@ -91,5 +96,21 @@ class Etape {
 
     public function setCategorieId($categorie_id) {
         $this->categorie_id = $categorie_id;
+    }
+
+    public function getOrdre() {
+        return $this->ordre;
+    }
+
+    public function setOrdre($ordre) {
+        $this->ordre = $ordre;
+    }
+    
+    public function getDuree() {
+        return $this->duree;
+    }
+
+    public function setDuree($duree) {
+        $this->duree = $duree;
     }
 }

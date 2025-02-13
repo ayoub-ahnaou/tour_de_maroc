@@ -20,7 +20,7 @@ class EtapeModel {
         $res = $stmt->fetchAll();
         $etapes = [];
         foreach($res as $etape) {
-            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"]);
+            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $etape["duree"]);
         }
         return $etapes;
     }
