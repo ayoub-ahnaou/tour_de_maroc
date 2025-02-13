@@ -1,6 +1,4 @@
 <?php
-require_once '../app/Entity/Cycliste.php';
-
 
 class CyclistController extends Controller
 {
@@ -28,5 +26,11 @@ class CyclistController extends Controller
         ];
         $this->view('CyclistProfile', $data);
     }
+public function cyclysteDash(){
+    echo "here is Cyclist controller";
+    $data=[];
+    $this->view('cyclysteDash', $data);
+
+}
 
 }
