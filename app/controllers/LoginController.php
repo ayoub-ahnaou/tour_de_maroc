@@ -1,7 +1,4 @@
 <?php
-namespace TourDeMaroc\App\controllers;
-
-use TourDeMaroc\App\libraries\Controller;
 use TourDeMaroc\App\models\users;
 
 class LoginController extends controller {
@@ -23,8 +20,10 @@ class LoginController extends controller {
                     header("Location: /adminDash");
                     exit;
                 } elseif ($role === "cycliste") {
-                    header("Location: /tour_de_maroc/CyclistController/cyclysteDash");
+                    header("Location: cycliste/profile");
                     exit;
+
+
                 } else {
                     header("Location: /fanDash.php");
                     exit;

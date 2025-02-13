@@ -38,8 +38,9 @@
 
         <!-- Grid des catégories -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <?php      extract($data); // Extraire $categoriesList     ?>  
-            <?php foreach($categoriesList as $categorie): ?>
+        <?php      extract($data);      ?>  
+
+            <?php foreach($coursesList as $course): ?>
             <div class="relative overflow-hidden shadow-lg bg-white">
                 <!-- Image de la catégorie -->
                 <img 
@@ -51,7 +52,7 @@
                 <!-- Titre de la catégorie -->
                 <div class="p-4">
                     <h2 class="text-xl font-bold mb-2">
-                        <?= htmlspecialchars($categorie->getNom()) ?>
+                        <?= htmlspecialchars($course->getNom()) ?>
                     </h2>
                     
                     <!-- Bouton voir plus -->

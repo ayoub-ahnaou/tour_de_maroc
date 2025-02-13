@@ -1,24 +1,28 @@
 <?php
 namespace TourDeMaroc\App\libraries;
+
+use Exception;
 use PDO;
-class database {
-    private static $instance = null;
-    private $pdo;
+
+class Database {
+    private PDO $connection;
+    private static $instance;
+
     private function __construct() {
         try {
-            $this->pdo = new PDO("pgsql:host=localhost;port=5432;dbname=tour", "postgres", "etrichi");
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(\PDOException $e) {
-            throw new \Exception("Connection failed: " . $e->getMessage());
+            $this->connection = new PDO("pgsql:host=". HOST_NAME .";dbname=". DATABASE_NAME, USER_NAME, PASSWORD);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            throw new Exception("Connection failed: " . $e->getMessage());
         }
     }
+
     public static function getInstance() {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
+        if(!isset(self::$instance)) self::$instance = new self();
         return self::$instance;
     }
     public function getConnection() {
-        return $this->pdo;
+        return $this->connection;
     }
 }
