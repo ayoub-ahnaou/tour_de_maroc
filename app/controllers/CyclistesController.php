@@ -12,7 +12,6 @@ class CyclistesController extends Controller
 
     public function Details($id)
     {
-
         $Cylist = $this->CylistModel->getCyclistById($id);
         $data = [
             "name" => $Cylist->getNomUtilisateur(),
@@ -26,6 +25,11 @@ class CyclistesController extends Controller
             "photo" => $Cylist->getPhoto()
         ];
         $this->view('cyclistes/cyclisteDetails', $data);
+    }
+
+    public function DeleteCycliste($id)
+    {
+
     }
 
 

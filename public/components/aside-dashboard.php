@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?= URL_ROOT ?>/dashboard/commentaires" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
+                <a href="<?= URL_ROOT ?>/dashboard/comments" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h8M8 14h6M21 12c0 4.418-4.03 8-9 8a9.45 9.45 0 01-4-.84L3 21l1.506-4.52A7.998 7.998 0 013 12C3 7.582 7.03 4 12 4s9 3.582 9 8z" />
                     </svg>

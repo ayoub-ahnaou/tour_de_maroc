@@ -1,6 +1,7 @@
 <?php
 
 use TourDeMaroc\App\models\CategorieModel;
+use TourDeMaroc\App\models\CommentModel;
 use TourDeMaroc\App\models\EtapeModel;
 
 class Dashboardcontroller extends Controller {
@@ -24,5 +25,10 @@ class Dashboardcontroller extends Controller {
     public function etapes() {
         $etapes = (new EtapeModel())->getAllEtapes();
         $this->view("admin/etapes/etapes", compact("etapes"));
+    }
+
+    public function comments(){
+        $comments = new CommentModel()->DisplayAllCommetent();
+     $this->view('admin/comment/Comments', $comments);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Youdemy\Config;
+namespace TourDeMaroc\App\libraries;
 
 use Exception;
 use PDO;
