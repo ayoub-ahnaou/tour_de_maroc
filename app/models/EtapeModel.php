@@ -39,4 +39,41 @@ class EtapeModel {
             throw new Exception("creation de l'etape faillée: " . $e->getMessage());
         }
     }
+    public function getTopThreeCyclists() {
+        $query = "
+            SELECT 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids,
+                SUM(ce.temps) as temps_total
+            FROM 
+                cycliste c
+                INNER JOIN cycliste_etape ce ON c.utilisateur_id = ce.cycliste_id
+            GROUP BY 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids
+            ORDER BY 
+                temps_total ASC
+            LIMIT 3
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

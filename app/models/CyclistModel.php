@@ -1,5 +1,7 @@
 <?php
+namespace TourDeMaroc\App\models;
 
+use PDO;
 use TourDeMaroc\App\Entity\Cycliste;
 use TourDeMaroc\App\libraries\Database;
 

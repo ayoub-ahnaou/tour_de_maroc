@@ -1,5 +1,7 @@
 <?php
 
+use TourDeMaroc\App\libraries\Controller;
+
 class CyclisteController extends Controller
 {
 
