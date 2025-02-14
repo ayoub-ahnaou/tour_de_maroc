@@ -14,7 +14,7 @@ class SearchModel {
         $results = [];
     
         $searchables = [
-            'cyclistes' => ['table' => 'cycliste', 'columns' => ['nom_utilisateur', 'equipe', 'nationalite']],
+            'cyclistes' => ['table' => 'cycliste', 'columns' => ['nom_utilisateur', 'prenom_utilisateur', 'nationalite']],
             'etapes' => ['table' => 'etape', 'columns' => ['lieu_de_depart', 'lieu_d_arrivee', 'region', 'difficulte']]
         ];
     
