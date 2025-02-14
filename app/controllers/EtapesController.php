@@ -8,9 +8,9 @@ class EtapesController extends Controller {
         $this->view("etapes/etapes");
     }
 
-    public function etape($id) {
-        echo $id;
-        $this->view("etapes/etapeDetails");
+    public function etape($ordre) {
+        $etape = (new EtapeModel())->getEtapeByOrdre($ordre);
+        $this->view("etapes/etapeDetails", compact("etape"));
     }
 
     public function editEtape($id) {
