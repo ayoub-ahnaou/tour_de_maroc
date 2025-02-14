@@ -71,15 +71,15 @@ class VirtualTeamModel
     }
 
     public function getVirtualTeamsByFanId(int $fanId): array
-    {
-        try {
-            $query = "SELECT * FROM virtualteam WHERE fan_id = :fan_id ORDER BY team_name";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->execute([':fan_id' => $fanId]);
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
-        } catch (\PDOException $e) {
-            error_log("Get Teams Error: " . $e->getMessage());
-            throw $e;
-        }
+{
+    try {
+        $query = "SELECT * FROM virtualteam WHERE fan_id = :fan_id ORDER BY team_name";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':fan_id' => $fanId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+        error_log("Get Teams Error: " . $e->getMessage());
+        throw $e;
     }
+}
 }
