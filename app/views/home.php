@@ -127,7 +127,7 @@
                     <?php } ?>
                     <!-- Add more ranking items following the same pattern -->
                 </div>
-                <a href="#" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
+                <a href="<?= URL_ROOT ?>/classements/general" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
                     CLASSEMENT COMPLET
                 </a>
             </div>
