@@ -1,8 +1,12 @@
 <?php
 
+
+
 use TourDeMaroc\App\models\VirtualTeamModel;  
 use TourDeMaroc\App\models\VirtualTeamCyclistModel; 
 use TourDeMaroc\App\libraries\Controller; 
+
+
 
 class VirtualTeamController extends Controller
 {
@@ -21,11 +25,11 @@ class VirtualTeamController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $teamName = filter_input(INPUT_POST, 'team_name', FILTER_SANITIZE_STRING);
-            $fanId = $_SESSION['user_id'] ?? null;
+            $fanId = $_SESSION['utilisateur_id'] ?? null;
 
             if (empty($teamName)) {
                 $data['error'] = "Team name is required.";
-                $this->view('virtualteams/create', $data);
+                $this->view('virtualteam/create', $data);
                 return;
             }
 
@@ -39,16 +43,16 @@ class VirtualTeamController extends Controller
                 exit();
             } else {
                 $data['error'] = "Error creating team. Please try again.";
-                $this->view('virtualteams/create', $data);
+                $this->view('virtualteam/create', $data);
             }
         } else {
-            $this->view('virtualteams/create');
+            $this->view('virtualteam/create');
         }
     }
 
     public function myTeams()
     {
-        $fanId = $_SESSION['user_id'] ?? null;
+        $fanId = $_SESSION['utilisateur_id'] ?? null;
 
         if (!$fanId) {
             echo "Error: Fan ID not found. User must be logged in to view teams.";
@@ -58,7 +62,7 @@ class VirtualTeamController extends Controller
         $virtualTeams = $this->virtualTeamModel->getVirtualTeamsByFanId($fanId);
 
         $data['virtualTeams'] = $virtualTeams;
-        $this->view('virtualteams/myteams', $data);
+        $this->view('virtualteam/myteams', $data);
     }
 
     public function addCyclist()
@@ -91,7 +95,7 @@ class VirtualTeamController extends Controller
         if ($virtualTeam) {
             $data['virtualTeam'] = $virtualTeam;
             $data['cyclists'] = $cyclistsInTeam;
-            $this->view('virtualteams/detail', $data);
+            $this->view('virtualteam/detail', $data);
         } else {
             echo "Virtual team not found.";
         }

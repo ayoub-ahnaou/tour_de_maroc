@@ -1,5 +1,4 @@
-<?php require APPROOT . '/views/components/header.php'; ?>
-<?php require APPROOT . '/views/components/navbar.php'; ?>
+<?php require APP_ROOT . '/public/components/header.php'; ?>
 
 <div class="container">
     <h1>Virtual Team: <?php echo htmlspecialchars($data['virtualTeam']['team_name']); ?></h1>
@@ -32,4 +31,4 @@
     <a href="<?php echo URLROOT; ?>/virtualteam/myteams" class="btn btn-secondary mt-3">Back to My Teams</a>
 </div>
 
-<?php require APPROOT . '/views/components/footer.php'; ?>
+<?php require APP_ROOT . '/public/components/footer.php'; ?>

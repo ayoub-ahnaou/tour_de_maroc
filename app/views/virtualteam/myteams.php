@@ -1,5 +1,4 @@
-<?php require APPROOT . '/views/components/header.php'; ?>
-<?php require APPROOT . '/views/components/navbar.php'; ?>
+<?php require APP_ROOT . '/public/components/header.php'; ?>
 
 <div class="container">
     <h1>My Virtual Teams</h1>
@@ -21,4 +20,4 @@
     <a href="<?php echo URLROOT; ?>/virtualteam/create" class="btn btn-primary mt-3">Create New Team</a>
 </div>
 
-<?php require APPROOT . '/views/components/footer.php'; ?>
+<?php require APP_ROOT . '/public/components/footer.php'; ?>

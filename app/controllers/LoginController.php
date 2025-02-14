@@ -1,7 +1,8 @@
 <?php
 use TourDeMaroc\App\models\users;
+use TourDeMaroc\App\Libraries\Controller;
 
-class LoginController extends controller {
+class LoginController extends Controller {
     public function index() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -23,7 +24,7 @@ class LoginController extends controller {
                     header("Location: /tour_de_maroc/CyclistController/cyclysteDash");
                     exit;
                 } else {
-                    header("Location: /fanDash.php");
+                    header("Location: /tour_de_maroc/virtualteam/create");
                     exit;
                 }
             } else {

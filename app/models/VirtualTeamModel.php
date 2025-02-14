@@ -1,74 +1,98 @@
 <?php
-
 namespace TourDeMaroc\App\models;
+
 use TourDeMaroc\App\libraries\Database;
 use PDO;
 
-class VirtualTeamModel
+class VirtualTeamModel 
 {
-    private $db;
-    private PDO $pdo; // To hold the PDO connection
+    private PDO $pdo;
 
     public function __construct()
     {
-        $this->db = Database::getInstance(); // Get the Singleton instance
-        $this->pdo = $this->db->getConnection(); // Get the PDO connection
+        $this->pdo = Database::getInstance()->getConnection();
     }
 
     public function createVirtualTeam(int $fanId, string $teamName): bool
     {
-        $sql = 'INSERT INTO VirtualTeam (fan_id, team_name) VALUES (:fan_id, :team_name)';
         try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':fan_id', $fanId, PDO::PARAM_INT);
-            $stmt->bindParam(':team_name', $teamName, PDO::PARAM_STR);
-            return $stmt->execute();
-        } catch (PDOException $e) {
-            // Handle PDO exceptions (log, display error, etc.)
-            error_log("Database Error in createVirtualTeam: " . $e->getMessage()); // Example logging
-            return false; // Indicate failure
-        }
-    }
-
-    public function getVirtualTeamsByFanId(int $fanId)
-    {
-        $sql = 'SELECT * FROM VirtualTeam WHERE fan_id = :fan_id';
-        try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':fan_id', $fanId, PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch as associative array
-        } catch (PDOException $e) {
-            error_log("Database Error in getVirtualTeamsByFanId: " . $e->getMessage());
+            $query = "INSERT INTO virtual_teams (fan_id, name) VALUES (:fan_id, :name)";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([
+                ':fan_id' => $fanId,
+                ':name' => $teamName
+            ]);
+        } catch (\PDOException $e) {
+            error_log("Create Virtual Team Error: " . $e->getMessage());
             return false;
         }
     }
 
-   
-    public function getVirtualTeamById(int $teamId)
+    public function getVirtualTeamsByFanId(int $fanId): array
     {
-        $sql = 'SELECT * FROM VirtualTeam WHERE virtual_team_id = :virtual_team_id';
         try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':virtual_team_id', $teamId, PDO::PARAM_INT);
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC); // Fetch single as associative array
-        } catch (PDOException $e) {
-            error_log("Database Error in getVirtualTeamById: " . $e->getMessage());
+            $query = "SELECT * FROM virtual_teams WHERE fan_id = :fan_id ORDER BY name";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':fan_id' => $fanId]);
+            return $stmt->fetchAll();
+        } catch (\PDOException $e) {
+            error_log("Get Teams Error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getVirtualTeamById(int $teamId): ?object
+    {
+        try {
+            $query = "SELECT * FROM virtual_teams WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':id' => $teamId]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ); // Explicitly fetch as object
+            return $result ?: null;
+        } catch (\PDOException $e) {
+            error_log("Get Team Error: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function updateVirtualTeam(int $teamId, string $teamName): bool
+    {
+        try {
+            $query = "UPDATE virtual_teams SET name = :name WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([
+                ':name' => $teamName,
+                ':id' => $teamId
+            ]);
+        } catch (\PDOException $e) {
+            error_log("Update Team Error: " . $e->getMessage());
             return false;
         }
     }
 
     public function deleteVirtualTeam(int $teamId): bool
     {
-        $sql = 'DELETE FROM VirtualTeam WHERE virtual_team_id = :virtual_team_id';
         try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':virtual_team_id', $teamId, PDO::PARAM_INT);
-            return $stmt->execute();
-        } catch (PDOException $e) {
-            error_log("Database Error in deleteVirtualTeam: " . $e->getMessage());
+            $query = "DELETE FROM virtual_teams WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            return $stmt->execute([':id' => $teamId]);
+        } catch (\PDOException $e) {
+            error_log("Delete Team Error: " . $e->getMessage());
             return false;
+        }
+    }
+
+    public function getTeamOwner(int $teamId): ?int
+    {
+        try {
+            $query = "SELECT fan_id FROM virtual_teams WHERE id = :id";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute([':id' => $teamId]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            return $result ? $result->fan_id : null;
+        } catch (\PDOException $e) {
+            error_log("Get Team Owner Error: " . $e->getMessage());
+            return null;
         }
     }
 }

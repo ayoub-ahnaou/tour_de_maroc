@@ -1,6 +1,6 @@
 <?php
 
-namespace TourDeMaroc\App\controllers;
+//namespace TourDeMaroc\App\controllers;
 
 use TourDeMaroc\App\libraries\Controller;
 
