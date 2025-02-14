@@ -24,12 +24,20 @@ use TourDeMaroc\App\Libraries\Session;
                 </div>
                 <a href="<?= URL_ROOT . "/profile"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
-                    <span class="text-xs"><?= htmlspecialchars($session->getUsername() ?? 'User') ?></span>
+                    <span class="text-xs">Profile</span>
                 </a>
             <?php else: ?>
+                <a href="<?= URL_ROOT . "/categorieVisiteur"; ?>" class="flex items-center gap-2">
+                    <!-- <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt=""> -->
+                    <span class="text-xs">Explorer Plus</span>
+                </a>
                 <a href="<?= URL_ROOT . "/login"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
                     <span class="text-xs">Se connecter</span>
+                </a>
+                <a href="<?= URL_ROOT . "/signup"; ?>" class="flex items-center gap-2">
+                    <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
+                    <span class="text-xs">S'inscrire</span>
                 </a>
             <?php endif; ?>
         </div>
