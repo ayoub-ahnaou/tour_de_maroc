@@ -118,4 +118,44 @@
         </div>
     </div>
 </section>
+    <!-- Comment Section -->
+    <div class="mt-12 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">Commentaires</h2>
+
+        <!-- Static Comments -->
+        <div id="comments-container" class="space-y-4 mb-6">
+            <div class="p-4 border rounded bg-gray-50">
+                <p class="text-lg font-medium">Jean Dupont</p>
+                <p class="text-gray-700">Superbe étape ! J'ai hâte de la voir en direct.</p>
+                <span class="text-sm text-gray-500">05 Juillet 2025 - 14:30</span>
+            </div>
+            <div class="p-4 border rounded bg-gray-50">
+                <p class="text-lg font-medium">Sophie Martin</p>
+                <p class="text-gray-700">Le parcours a l'air incroyable. Bonne chance aux coureurs !</p>
+                <span class="text-sm text-gray-500">05 Juillet 2025 - 15:00</span>
+            </div>
+            <div class="p-4 border rounded bg-gray-50">
+                <p class="text-lg font-medium">Paul Leclerc</p>
+                <p class="text-gray-700">J’espère que la météo sera au rendez-vous !</p>
+                <span class="text-sm text-gray-500">05 Juillet 2025 - 15:45</span>
+            </div>
+        </div>
+
+        <!-- Static Comment Form (Non-functional) -->
+        <form class="space-y-4">
+            <div>
+                <label for="name" class="block text-gray-700 font-medium">Nom</label>
+                <input type="text" id="name" name="name" required class="w-full p-2 border rounded">
+            </div>
+            <div>
+                <label for="comment" class="block text-gray-700 font-medium">Commentaire</label>
+                <textarea id="comment" name="comment" rows="4" required class="w-full p-2 border rounded"></textarea>
+            </div>
+            <button type="submit" class="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors">
+                Ajouter un commentaire
+            </button>
+        </form>
+    </div>
+    <!-- END OF COMMENT SECTION -->
+
 <?php require_once "./components/footer.php"; ?>
