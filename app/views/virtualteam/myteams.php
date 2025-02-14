@@ -1,8 +1,4 @@
-<?php 
-require APP_ROOT . '/public/components/header.php';
-use TourDeMaroc\App\Libraries\Session;
-$session = Session::getInstance();
-?>
+<?php require APP_ROOT . '/public/components/header.php'; ?>
 
 <div class="flex-grow container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-6">
@@ -41,7 +37,7 @@ $session = Session::getInstance();
                             <h3 class="text-lg font-semibold text-gray-800">
                                 <?php echo htmlspecialchars($team['team_name']); ?>
                             </h3>
-                            <p class="text-sm text-gray-500">Managed by <?php echo htmlspecialchars($session->get('username')); ?></p>
+                            <p class="text-sm text-gray-500">Managed by <?php echo htmlspecialchars($data['username']); ?></p>
                         </div>
                         <div class="text-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -96,16 +96,27 @@ class users{
                  $_SESSION["role"] = $user['role']; 
      
                  return true; 
-             } else { 
+             } else {    
                return "mot de passe incorrecte"; 
              } 
          } else {
              return "Email inexistant"; 
          }
      }
-  
-  
-     
-  
+
+     public function GetUserById($utilisateur_id) { 
+        try {
+            $bd = Database::getInstance()->getConnection(); 
+            $sql = "SELECT * FROM utilisateur WHERE utilisateur_id=:utilisateur_id";
+            $stmt = $bd->prepare($sql); 
+            $stmt->bindValue(":utilisateur_id", $utilisateur_id);
+            $stmt->execute(); 
+            return $stmt->fetch(\PDO::FETCH_ASSOC); 
+        } catch (\PDOException $e) {
+            error_log("Error getting user by ID: " . $e->getMessage());
+            return null;
+        }
+    }
+
 
 }
