@@ -39,7 +39,7 @@ class VirtualTeamController extends Controller
             }
 
             if ($this->virtualTeamModel->createVirtualTeam($fanId, $teamName)) {
-                header('Location: ' . URLROOT . '/virtualteam/myteams');
+                header('Location: ' . URL_ROOT . '/virtualteam/myteams');
                 exit();
             } else {
                 $data['error'] = "Error creating team. Please try again.";
@@ -77,7 +77,7 @@ class VirtualTeamController extends Controller
             }
 
             if ($this->virtualTeamCyclistModel->addCyclistToTeam($virtualTeamId, $cyclistId)) {
-                header('Location: ' . URLROOT . '/virtualteam/detail/' . $virtualTeamId);
+                header('Location: ' . URL_ROOT . '/virtualteam/detail/' . $virtualTeamId);
                 exit();
             } else {
                 echo "Error adding cyclist to team. Please try again.";
