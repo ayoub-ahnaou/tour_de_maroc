@@ -20,14 +20,20 @@ class EtapeModel {
         $res = $stmt->fetchAll();
         $etapes = [];
         foreach($res as $etape) {
-            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $etape["duree"]);
+            $timeformat = explode(":", $etape["duree"]);
+            $duree = "";
+            
+            if($timeformat[0] > 0) $duree .= intval($timeformat[0]) . "hours ";
+            if($timeformat[1] > 0) $duree .= intval($timeformat[1]) . "mniutes ";
+
+            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $duree);
         }
         return $etapes;
     }
 
     public function createEtape($ordre, $lieu_depart, $lieu_arrive, $distance, $difficulte, $date, $duree, $categorie) {
         $sql = "INSERT INTO etape (ordre, lieu_de_depart, lieu_d_arrivee, distance, difficulte, date, duree, course_id, categorie_id) 
-            VALUES (:ordre, :lieu_de_depart, :lieu_d_arrivee, :distance, :difficulte, :date, :duree, '1', :categorie)";
+            VALUES (:ordre, :lieu_de_depart, :lieu_d_arrivee, :distance, :difficulte, :date, CAST(:duree AS INTERVAL), '1', :categorie)";
         
         try {
             $stmt = $this->db->prepare($sql);
