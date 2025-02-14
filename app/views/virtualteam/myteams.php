@@ -9,7 +9,7 @@
         <ul class="list-group">
             <?php foreach ($data['virtualTeams'] as $team) : ?>
                 <li class="list-group-item">
-                    <a href="<?php echo URLROOT; ?>/virtualteam/detail/<?php echo $team['virtual_team_id']; ?>">
+                    <a href="<?php echo URL_ROOT; ?>/virtualteam/detail/<?php echo $team['virtual_team_id']; ?>">
                         <?php echo htmlspecialchars($team['team_name']); ?>
                     </a>
                 </li>
@@ -17,7 +17,7 @@
         </ul>
     <?php endif; ?>
 
-    <a href="<?php echo URLROOT; ?>/virtualteam/create" class="btn btn-primary mt-3">Create New Team</a>
+    <a href="<?php echo URL_ROOT; ?>/virtualteam/create" class="btn btn-primary mt-3">Create New Team</a>
 </div>
 
 <?php require APP_ROOT . '/public/components/footer.php'; ?>
