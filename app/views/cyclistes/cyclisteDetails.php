@@ -14,7 +14,7 @@
             <div class="md:flex-shrink-0 relative">
                 <img class="h-96 w-full object-cover md:w-96" src="<?php echo $data['photo']?>" alt="Tadej Pogačar">
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-6">
-                    <h2 class="text-4xl font-bold leading-tight"><?php echo $data['name']?></h2>
+                    <h2 class="text-4xl font-bold leading-t ight"><?php echo $data['name']?></h2>
                     <p class="text-xl mt-2"><?php $data['name']?></p>
                 </div>
             </div>
