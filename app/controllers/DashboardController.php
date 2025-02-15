@@ -1,8 +1,10 @@
 <?php
 
+use TourDeMaroc\App\Models\BadgeModel;
 use TourDeMaroc\App\models\CategorieModel;
 use TourDeMaroc\App\models\CommentModel;
 use TourDeMaroc\App\models\EtapeModel;
+use TourDeMaroc\App\Models\QuestionModel;
 
 class Dashboardcontroller extends Controller {
     public function index() {
@@ -29,6 +31,26 @@ class Dashboardcontroller extends Controller {
 
     public function comments(){
         $comments = new CommentModel()->DisplayAllCommetent();
-     $this->view('admin/comment/Comments', $comments);
+        $this->view('admin/comment/Comments', $comments);
+    }
+  
+    public function badges() {
+        $nom_badge = $nom_badge_err = "";
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (empty(trim($_POST["badge"]))) {
+                $badge_err = "Le nom de badge est requis.";
+            } else {
+                $nom_badge = trim($_POST["badge"]);
+                $response = (new BadgeModel())->createBadge($nom_badge);
+            }
+
+        }
+        $badges = (new BadgeModel())->getAllBadges();
+        $this->view("admin/badges/badges", compact("badges"));
+    }
+
+    public function questions() {
+        $questions = (new QuestionModel)->questions();
+        $this->view("admin/questions/questions", compact("questions"));
     }
 }
