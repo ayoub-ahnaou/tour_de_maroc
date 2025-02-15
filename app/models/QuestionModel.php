@@ -25,7 +25,7 @@ class QuestionModel {
 
     public function getAllQuestions($fan_id, $cycliste_id) {
         try {
-            $sql = "SELECT q.*, nom_utilisateur, prenom_utilisateur FROM question q JOIN utilisateur u
+            $sql = "SELECT q.*, nom_utilisateur, prenom_utilisateur, email FROM question q JOIN utilisateur u
                 ON u.utilisateur_id = q.auteur_id
                 WHERE auteur_id = :auteur_id AND cycliste_id = :cycliste_id";
             $stmt = $this->db->prepare($sql);
@@ -37,9 +37,17 @@ class QuestionModel {
         }
     }
 
+    public function questions() {
+        $sql = "SELECT q.*, nom_utilisateur, prenom_utilisateur, email FROM question q
+            JOIN utilisateur u ON u.utilisateur_id = q.auteur_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function getAllReponses($fan_id, $cycliste_id) {
         try {
-            $sql = "SELECT q.*, nom_utilisateur, prenom_utilisateur FROM question q JOIN utilisateur u
+            $sql = "SELECT q.*, nom_utilisateur, prenom_utilisateur, email FROM question q JOIN utilisateur u
                 ON u.utilisateur_id = q.cycliste_id
                 WHERE auteur_id = :auteur_id AND cycliste_id = :cycliste_id
                 AND reponse IS NOT NULL";
