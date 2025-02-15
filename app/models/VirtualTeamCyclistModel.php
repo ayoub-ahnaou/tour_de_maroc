@@ -1,5 +1,4 @@
 <?php
-
 namespace TourDeMaroc\App\models;
 
 use TourDeMaroc\App\libraries\Database;
@@ -8,10 +7,8 @@ class VirtualTeamCyclistModel {
     private $db;
 
     public function __construct() {
-        $this->db = new Database;
+        $this->db = Database::getInstance();
     }
-
-    // ... other methods remain the same ...
 
     public function searchCyclists($term) {
         $this->db->query(
