@@ -1,4 +1,11 @@
-<?php require_once "./components/header.php"; ?>
+<?php
+
+use TourDeMaroc\App\Models\SoutienModel;
+
+require_once "./components/header.php"; ?>
+<?php extract($data); ?>
+
+<?php $isCyclisteSoutainedByFan = (new SoutienModel())->isCyclisteSoutainedByFan(1, 2); ?>
 
 <header class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white py-6 shadow-lg">
     <div class="container mx-auto px-4">
@@ -7,7 +14,9 @@
 </header>
 
 <main class="container mx-auto px-4 py-12">
-    <div class="bg-white rounded-xl shadow-2xl overflow-hidden mb-12">
+
+    <div class="bg-white rounded-xl shadow-2xl overflow-hidden mb-12 relative">
+
         <div class="md:flex">
             <div class="md:flex-shrink-0 relative">
                 <img class="h-96 w-full object-cover md:w-96" src="https://img.aso.fr/core_app/img-cycling-tdf-png/11/56077/0:0,400:400-300-0-70/47a4b" alt="Tadej Pogačar">
@@ -45,9 +54,16 @@
                 </div>
             </div>
         </div>
-        <div class="bg-black h-8 text-white px-6 flex justify-end pt-1">
-            <span class="cursor-pointer">Soutenir cyclist <span class="bg-yellow-300 px-1 text-xs rounded-full">+1</span></span>
-        </div>
+
+        <?php if (!$isCyclisteSoutainedByFan): ?>
+            <div class="bg-black h-8 text-white px-6 flex justify-end pt-1">
+                <a href="<?= URL_ROOT ?>/cyclistes/soutenir/1/2" class="cursor-pointer">Soutenir cyclist <span class="bg-yellow-300 text-black px-1 text-xs rounded-full">+1</span></a>
+            </div>
+        <?php else: ?>
+            <div class="bg-black h-8 text-white px-6 flex justify-end pt-1">
+                <p class="cursor-pointer">Vous avez soutené ce cycliste <span class="bg-yellow-300 text-black px-1 text-xs rounded-full">✔</span></p>
+            </div>
+        <?php endif; ?>
     </div>
 
 
@@ -133,6 +149,41 @@
                 <p class="text-3xl font-bold text-yellow-500">5</p>
                 <p class="text-gray-600">Classements par points</p>
             </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 p-8 rounded-xl mt-8 flex flex-col gap-2">
+        <h1 class="text-xl">Poser une question à Richard Morphy</h1>
+        <form action="<?= URL_ROOT ?>/questions/ask/1/2" method="post" class="mt-4">
+            <input type="text" name="question" id="question" value="" placeholder="Ecrit votre question ici..." class="bg-white w-full p-2">
+            <button class="bg-black text-white px-4 mt-2 text-sm">Envoyer</button>
+        </form>
+        <hr class="text-gray-400">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col">
+                <span class="text-gray-600 font-bold">Question</span>
+                <?php foreach ($questions as $question) : ?>
+                    <div class="flex flex-col my-2 bg-white p-2 shadow-md">
+                        <span class="text">
+                            <span class="pr-1"><?= $question["prenom_utilisateur"] ?> <?= $question["nom_utilisateur"] ?></span>
+                            -
+                            <span class="pl-1 text-xs"><?= $question["email"]; ?></span>
+                        </span>
+                        <p class="text-sm text-gray-600"><?= $question["contenu"] ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- <?php if (sizeof($reponses) > 0) : ?>
+                <?php foreach ($reponses as $reponse): ?>
+                    <div class="bg-white p-4 flex flex-col">
+                        <span class="text-blue-700"><?= $reponse["prenom_utilisateur"] ?> <?= $reponse["nom_utilisateur"] ?></span>
+                        <p class="text-sm text-gray-600"><?= $reponse["reponse"] ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="text-gray-500 text-sm p-2 bg-white w-full">Aucune reponse pour l'instant</div>
+            <?php endif; ?> -->
         </div>
     </section>
 </main>
