@@ -1,156 +1,192 @@
-<?php require APP_ROOT . '/public/components/header.php'; ?>
+<?php require APP_ROOT . '/views/includes/header.php'; ?>
 
-<div class="flex-grow container mx-auto px-4 py-8">
-    <!-- Header with back button -->
-    <div class="flex items-center gap-4 mb-8">
-        <a href="<?php echo URL_ROOT; ?>/virtualteam/myteams" 
-           class="bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded-lg transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </a>
-        <h1 class="text-2xl font-bold text-gray-800">
-            <?php echo htmlspecialchars($data['virtualTeam']->team_name); ?>
-        </h1>
+<div class="container mx-auto px-4 py-8">
+   
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="<?php echo URL_ROOT; ?>/virtualteam" 
+                   class="inline-flex items-center justify-center p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-3xl font-bold text-gray-900">
+                    <?php echo htmlspecialchars($data['team']->team_name); ?>
+                </h1>
+            </div>
+            <div class="text-sm text-gray-500">
+                Créé le <?php echo date('d/m/Y', strtotime($data['team']->created_at)); ?>
+            </div>
+        </div>
     </div>
 
     <!-- Flash Messages -->
-    <?php if (isset($_SESSION['success'])): ?>
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <?php 
-            echo $_SESSION['success'];
-            unset($_SESSION['success']);
-            ?>
-        </div>
-    <?php endif; ?>
+    <?php flash('virtual_team_message'); ?>
 
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <?php 
-            echo $_SESSION['error'];
-            unset($_SESSION['error']);
-            ?>
-        </div>
-    <?php endif; ?>
-
-    <!-- Grid Container -->
-    <div class="grid gap-6 md:grid-cols-2">
-        <!-- Cyclists List Section -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">Cyclistes de l'équipe</h2>
-                <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">
-                    <?php echo count($data['cyclists']); ?> cyclistes
-                </span>
-            </div>
-
-            <?php if (empty($data['cyclists'])) : ?>
-                <div class="text-center py-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <p class="text-gray-500">Aucun cycliste dans cette équipe.</p>
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Left Column - Team Members -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Membres de l'équipe</h2>
+                    <span class="px-3 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full">
+                        <?php echo count($data['cyclists']); ?> cyclistes
+                    </span>
                 </div>
-            <?php else : ?>
-                <div class="space-y-2">
-                    <?php foreach ($data['cyclists'] as $cyclist) : ?>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-gray-200 p-2 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <span class="font-medium text-gray-700">
-                                    <?php echo htmlspecialchars($cyclist->nom_utilisateur); ?>
-                                </span>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </div>
 
-        <!-- Add Cyclist Form Section -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Ajouter un Cycliste</h2>
-            <form action="<?php echo URL_ROOT; ?>/virtualteam/addCyclist" method="POST" class="space-y-4">
-                <input type="hidden" name="virtual_team_id" value="<?php echo $data['virtualTeam']->virtual_team_id; ?>">
-                
-                <div>
-                    <label for="cyclist_name" class="block text-sm font-medium text-gray-700 mb-1">
-                        Nom du Cycliste
-                    </label>
-                    <div class="relative">
-                        <input type="text" 
-                               id="cyclist_name" 
-                               name="cyclist_name" 
-                               required
-                               autocomplete="off"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-shadow"
-                               placeholder="Rechercher un cycliste...">
-                        <div id="searchResults" class="absolute w-full bg-white mt-1 rounded-lg shadow-lg border border-gray-200 hidden"></div>
+                <?php if (empty($data['cyclists'])) : ?>
+                    <div class="text-center py-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p class="mt-4 text-gray-500">Aucun cycliste dans cette équipe</p>
+                        <p class="text-sm text-gray-400">Ajoutez des cyclistes pour commencer</p>
                     </div>
-                    <p class="mt-1 text-sm text-gray-500">
-                        Commencez à taper le nom d'un cycliste pour le rechercher
-                    </p>
-                </div>
-
-                <button type="submit" 
-                        class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                    </svg>
-                    Ajouter à l'Équipe
-                </button>
-            </form>
+                <?php else : ?>
+                    <div class="space-y-3">
+                        <?php foreach ($data['cyclists'] as $cyclist) : ?>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <?php if (!empty($cyclist->photo)) : ?>
+                                            <img class="h-10 w-10 rounded-full" src="<?php echo URL_ROOT; ?>/img/cyclists/<?php echo htmlspecialchars($cyclist->photo); ?>" alt="">
+                                        <?php else : ?>
+                                            <div class="h-10 w-10 rounded-full bg-yellow-200 flex items-center justify-center">
+                                                <span class="text-yellow-700 font-medium text-sm">
+                                                    <?php echo strtoupper(substr($cyclist->prenom_utilisateur, 0, 1)); ?>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <?php echo htmlspecialchars($cyclist->prenom_utilisateur . ' ' . $cyclist->nom_utilisateur); ?>
+                                        </div>
+                                        <?php if (!empty($cyclist->nationalite)) : ?>
+                                            <div class="text-sm text-gray-500">
+                                                <?php echo htmlspecialchars($cyclist->nationalite); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php if ($data['team']->fan_id === $_SESSION['user_id']) : ?>
+                                    <form action="<?php echo URL_ROOT; ?>/virtualteam/removeCyclist" method="POST" class="flex-shrink-0">
+                                        <input type="hidden" name="cyclist_id" value="<?php echo $cyclist->utilisateur_id; ?>">
+                                        <input type="hidden" name="team_id" value="<?php echo $data['team']->virtual_team_id; ?>">
+                                        <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
+
+        <!-- Right Column - Add Cyclist Form -->
+        <?php if ($data['team']->fan_id === $_SESSION['user_id']) : ?>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Ajouter un cycliste</h2>
+                    <form action="<?php echo URL_ROOT; ?>/virtualteam/addCyclist" method="POST">
+                        <input type="hidden" name="virtual_team_id" value="<?php echo $data['team']->virtual_team_id; ?>">
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="cyclist_name" class="block text-sm font-medium text-gray-700">Nom du cycliste</label>
+                                <div class="relative mt-1">
+                                    <input type="text" 
+                                           id="cyclist_name" 
+                                           name="cyclist_name" 
+                                           class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500" 
+                                           placeholder="Commencez à taper un nom..."
+                                           required
+                                           autocomplete="off">
+                                    <div id="searchResults" class="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 hidden"></div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                Ajouter à l'équipe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
-<!-- Add this before the closing body tag -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('cyclist_name');
     const searchResults = document.getElementById('searchResults');
-    let debounceTimeout;
+    let debounceTimer;
 
     searchInput.addEventListener('input', function() {
-        clearTimeout(debounceTimeout);
-        
-        if (this.value.length < 2) {
-            searchResults.innerHTML = '';
+        clearTimeout(debounceTimer);
+        const searchTerm = this.value.trim();
+
+        if (searchTerm.length < 2) {
             searchResults.classList.add('hidden');
             return;
         }
 
-        debounceTimeout = setTimeout(() => {
-            fetch(`${URL_ROOT}/virtualteam/searchCyclists/${this.value}`)
+        debounceTimer = setTimeout(() => {
+            fetch(`<?php echo URL_ROOT; ?>/virtualteam/searchCyclists/${searchTerm}`)
                 .then(response => response.json())
                 .then(data => {
                     searchResults.innerHTML = '';
-                    searchResults.classList.remove('hidden');
-
-                    if (data.length === 0) {
-                        searchResults.innerHTML = '<div class="p-3 text-gray-500">Aucun cycliste trouvé</div>';
-                        return;
-                    }
-
-                    data.forEach(cyclist => {
-                        const div = document.createElement('div');
-                        div.className = 'p-3 hover:bg-gray-100 cursor-pointer';
-                        div.textContent = `${cyclist.prenom_utilisateur} ${cyclist.nom_utilisateur}`;
-                        div.addEventListener('click', () => {
-                            searchInput.value = cyclist.nom_utilisateur;
-                            searchResults.classList.add('hidden');
+                    
+                    if (data.length > 0) {
+                        data.forEach(cyclist => {
+                            const div = document.createElement('div');
+                            div.className = 'p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0';
+                            div.innerHTML = `
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <div class="h-8 w-8 rounded-full bg-yellow-200 flex items-center justify-center">
+                                            <span class="text-yellow-700 font-medium text-sm">
+                                                ${cyclist.prenom_utilisateur.charAt(0)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            ${cyclist.prenom_utilisateur} ${cyclist.nom_utilisateur}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            div.onclick = () => {
+                                searchInput.value = cyclist.nom_utilisateur;
+                                searchResults.classList.add('hidden');
+                            };
+                            searchResults.appendChild(div);
                         });
+                        searchResults.classList.remove('hidden');
+                    } else {
+                        const div = document.createElement('div');
+                        div.className = 'p-3 text-sm text-gray-500';
+                        div.textContent = 'Aucun cycliste trouvé';
                         searchResults.appendChild(div);
-                    });
+                        searchResults.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    searchResults.classList.add('hidden');
                 });
         }, 300);
     });
 
-    // Hide results when clicking outside
+    
     document.addEventListener('click', function(e) {
         if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
             searchResults.classList.add('hidden');
@@ -159,4 +195,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require APP_ROOT . '/public/components/footer.php'; ?>
+<?php require APP_ROOT . '/views/includes/footer.php'; ?>

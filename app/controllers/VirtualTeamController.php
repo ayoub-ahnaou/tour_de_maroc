@@ -40,27 +40,6 @@ class VirtualTeamController extends Controller
         $this->view('virtualteam/myteams', $data);
     }
 
-    public function addCyclist()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $virtualTeamId = filter_input(INPUT_POST, 'virtual_team_id', FILTER_VALIDATE_INT);
-            $cyclistId = filter_input(INPUT_POST, 'cyclist_id', FILTER_VALIDATE_INT);
-
-            if ($virtualTeamId === false || $cyclistId === false) {
-                echo "Error: Invalid team ID or cyclist ID.";
-                return;
-            }
-
-            if ($this->virtualTeamCyclistModel->addCyclistToTeam($virtualTeamId, $cyclistId)) {
-                header('Location: ' . URL_ROOT . '/virtualteam/detail/' . $virtualTeamId);
-                exit();
-            } else {
-                echo "Error adding cyclist to team. Please try again.";
-            }
-        } else {
-            echo "Error: Invalid request method.";
-        }
-    }
 
     public function detail(int $teamId)
     {
