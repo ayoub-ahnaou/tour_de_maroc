@@ -38,4 +38,15 @@ class VirtualTeamCyclistModel {
         
         return $this->db->single();
     }
+
+
+    public function getCyclistsInTeam($teamId) {
+        $this->db->query("SELECT u.* 
+                         FROM utilisateur u
+                         JOIN virtualteamcyclist vtc ON u.utilisateur_id = vtc.cycliste_id
+                         WHERE vtc.virtual_team_id = :team_id");
+        
+        $this->db->bind(':team_id', $teamId);
+        return $this->db->resultSet();
+    }
 }
