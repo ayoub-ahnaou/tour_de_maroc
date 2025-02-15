@@ -3,6 +3,7 @@
 use TourDeMaroc\App\Models\BadgeModel;
 use TourDeMaroc\App\models\CategorieModel;
 use TourDeMaroc\App\models\EtapeModel;
+use TourDeMaroc\App\Models\QuestionModel;
 
 class Dashboardcontroller extends Controller {
     public function index() {
@@ -40,5 +41,10 @@ class Dashboardcontroller extends Controller {
         }
         $badges = (new BadgeModel())->getAllBadges();
         $this->view("admin/badges/badges", compact("badges"));
+    }
+
+    public function questions() {
+        $questions = (new QuestionModel)->questions();
+        $this->view("admin/questions/questions", compact("questions"));
     }
 }
