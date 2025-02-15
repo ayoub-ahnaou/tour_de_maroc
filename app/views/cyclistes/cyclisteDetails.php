@@ -160,19 +160,21 @@ require_once "./components/header.php"; ?>
         </form>
         <hr class="text-gray-400">
         <div class="flex flex-col gap-4">
-            <div class="bg-white p-4 flex flex-col">
+            <div class="flex flex-col">
                 <span class="text-gray-600 font-bold">Question</span>
                 <?php foreach ($questions as $question) : ?>
-                    <div class="flex flex-col my-2">
-                        <span class="text"><?= $question["prenom_utilisateur"] ?> <?= $question["nom_utilisateur"] ?></span>
+                    <div class="flex flex-col my-2 bg-white p-2 shadow-md">
+                        <span class="text">
+                            <span class="pr-1"><?= $question["prenom_utilisateur"] ?> <?= $question["nom_utilisateur"] ?></span>
+                            -
+                            <span class="pl-1 text-xs"><?= $question["email"]; ?></span>
+                        </span>
                         <p class="text-sm text-gray-600"><?= $question["contenu"] ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
 
-            <hr>
-
-            <?php if (sizeof($reponses) > 0) : ?>
+            <!-- <?php if (sizeof($reponses) > 0) : ?>
                 <?php foreach ($reponses as $reponse): ?>
                     <div class="bg-white p-4 flex flex-col">
                         <span class="text-blue-700"><?= $reponse["prenom_utilisateur"] ?> <?= $reponse["nom_utilisateur"] ?></span>
@@ -181,7 +183,7 @@ require_once "./components/header.php"; ?>
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="text-gray-500 text-sm p-2 bg-white w-full">Aucune reponse pour l'instant</div>
-            <?php endif; ?>
+            <?php endif; ?> -->
         </div>
     </section>
 </main>
