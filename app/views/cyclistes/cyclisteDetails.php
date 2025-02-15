@@ -19,10 +19,10 @@ require_once "./components/header.php"; ?>
 
         <div class="md:flex">
             <div class="md:flex-shrink-0 relative">
-                <img class="h-96 w-full object-cover md:w-96" src="https://img.aso.fr/core_app/img-cycling-tdf-png/11/56077/0:0,400:400-300-0-70/47a4b" alt="Tadej Pogačar">
+                <img class="h-96 w-full object-cover md:w-96" src="<?php echo $data['photo']?>" alt="Tadej Pogačar">
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent text-white p-6">
-                    <h2 class="text-4xl font-bold leading-tight">Richard</h2>
-                    <p class="text-xl mt-2">Morphy</p>
+                    <h2 class="text-4xl font-bold leading-t ight"><?php echo $data['name']?></h2>
+                    <p class="text-xl mt-2"><?php $data['name']?></p>
                 </div>
             </div>
             <div class="p-8 md:p-12 flex flex-col justify-between">
@@ -35,20 +35,22 @@ require_once "./components/header.php"; ?>
                     </p>
                 </div>
                 <div class="grid grid-cols-2 gap-4 text-center">
+
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">26</p>
-                        <p class="text-gray-600">Âge</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['birth_date']?></p>
+                        <p class="text-gray-600">La date de naicance</p>
                     </div>
+
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">1.76m</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['height']?></p>
                         <p class="text-gray-600">Taille</p>
                     </div>
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">66kg</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['weight']?></p>
                         <p class="text-gray-600">Poids</p>
                     </div>
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-4xl font-bold text-yellow-500">🇸🇮</p>
+                        <p class="text-4xl font-bold text-yellow-500"><?php echo $data['nationality']?></p>
                         <p class="text-gray-600">Nationalité</p>
                     </div>
                 </div>
@@ -65,7 +67,6 @@ require_once "./components/header.php"; ?>
             </div>
         <?php endif; ?>
     </div>
-
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
         <section class="bg-white rounded-xl shadow-lg p-8">
@@ -90,27 +91,19 @@ require_once "./components/header.php"; ?>
             <h3 class="text-2xl font-bold mb-6 text-gray-800">Palmarès</h3>
             <ul class="space-y-3 text-gray-700">
                 <li class="flex items-center">
-                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Vainqueur du Tour de France 2023, 2024
                 </li>
                 <li class="flex items-center">
-                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Vainqueur du Giro d'Italia 2022
                 </li>
                 <li class="flex items-center">
-                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Vainqueur de la Vuelta a España 2023
                 </li>
                 <li class="flex items-center">
-                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
+                    <svg class="w-6 h-6 text-yellow-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Champion de Slovénie sur route 2022, 2023
                 </li>
             </ul>
@@ -189,3 +182,4 @@ require_once "./components/header.php"; ?>
 </main>
 
 <?php require_once "./components/footer.php"; ?>
+

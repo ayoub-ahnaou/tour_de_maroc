@@ -2,6 +2,7 @@
 
 use TourDeMaroc\App\Models\BadgeModel;
 use TourDeMaroc\App\models\CategorieModel;
+use TourDeMaroc\App\models\CommentModel;
 use TourDeMaroc\App\models\EtapeModel;
 use TourDeMaroc\App\Models\QuestionModel;
 
@@ -28,6 +29,11 @@ class Dashboardcontroller extends Controller {
         $this->view("admin/etapes/etapes", compact("etapes"));
     }
 
+    public function comments(){
+        $comments = new CommentModel()->DisplayAllCommetent();
+        $this->view('admin/comment/Comments', $comments);
+    }
+  
     public function badges() {
         $nom_badge = $nom_badge_err = "";
         if($_SERVER["REQUEST_METHOD"] == "POST") {
