@@ -193,3 +193,13 @@ ON DELETE CASCADE;
 
 ALTER TABLE Etape ADD COLUMN ordre INTEGER UNIQUE
 alter table etape add column duree interval;
+
+CREATE TABLE ResetPassword (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    reset_token_hash VARCHAR(64) NULL DEFAULT NULL,
+    reset_token_expires_at TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT reset_token_hash_unique UNIQUE (reset_token_hash),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES utilisateur(utilisateur_id)
+);
