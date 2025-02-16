@@ -52,7 +52,7 @@
                             </div>
                             <div class="flex flex-col w-1/2">
                                 <label class="text-gray-500" for="duree">Durée</label>
-                                <input value="<?= $duree ?>" type="number" name="duree" id="duree" placeholder="entrer la durée d'etape en minute" class="bg-gray-100 rounded-sm p-1">
+                                <input value="<?= $duree ?>" type="text" name="duree" id="duree" placeholder="entrer la durée d'etape en minute" class="bg-gray-100 rounded-sm p-1">
                                 <label class="text-red-600"><?= $duree_err ?></label>
                             </div>
                         </div>
