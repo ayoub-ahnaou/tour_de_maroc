@@ -15,7 +15,9 @@ class LoginController extends Controller {
                 $userModel = new users();
                 $user = $userModel->GetUserMail($email);
                 $role = $user["role"];
-    
+                
+                $_SESSION["user_id"] = $user["utilisateur_id"];
+                $_SESSION["role"] = $role;
 
                 if ($role === "administrateur") {
                     header("Location: /adminDash");
