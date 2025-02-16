@@ -1,5 +1,5 @@
 <?php
-namespace TourDeMaroc\App\models;
+namespace TourDeMaroc\App\Models;
 
 use Exception;
 use PDO;

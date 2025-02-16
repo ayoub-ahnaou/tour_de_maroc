@@ -1,4 +1,5 @@
 <?php
+namespace TourDeMaroc\App\libraries;
 
 class Controller {
     public function modal($model) {

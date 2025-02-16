@@ -1,6 +1,7 @@
 <?php
 
 use TourDeMaroc\App\models\users;
+use TourDeMaroc\App\Libraries\Controller;
 
 class LoginController extends Controller {
     public function index() {
@@ -26,7 +27,7 @@ class LoginController extends Controller {
                     header("Location: /tour_de_maroc/CyclistController/cyclysteDash");
                     exit;
                 } else {
-                    header("Location: /fanDash.php");
+                    header("Location: /tour_de_maroc/virtualteam/create");
                     exit;
                 }
             } else {

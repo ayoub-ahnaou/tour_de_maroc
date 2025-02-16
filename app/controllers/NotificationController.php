@@ -1,7 +1,8 @@
 <?php
-namespace TourDeMaroc\App\Controllers;
 
-class NotificationController {
+use TourDeMaroc\App\libraries\Controller;
+
+class NotificationController extends Controller {
     private $notificationModel;
 
     public function __construct($notificationModel) {
