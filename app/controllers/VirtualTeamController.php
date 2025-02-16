@@ -114,4 +114,43 @@ class VirtualTeamController extends Controller
         redirect('virtualteam/detail/' . $teamId);
     }
 }
+
+public function create()
+{
+    // Check if user is logged in
+    if (!isset($_SESSION['utilisateur_id'])) {
+        redirect('login');
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Process form submission
+        $data = [
+            'team_name' => trim($_POST['team_name'] ?? ''),
+            'fan_id' => $_SESSION['utilisateur_id']
+        ];
+
+        // Validate team name
+        if (empty($data['team_name'])) {
+            flash('virtual_team_message', 'Le nom de l\'équipe est requis', 'alert alert-danger');
+            $this->view('virtualteam/create', $data);
+            return;
+        }
+
+        // Create team
+        if ($this->virtualTeamModel->createVirtualTeam($data)) {
+            flash('virtual_team_message', 'Équipe créée avec succès', 'alert alert-success');
+            redirect('virtualteam/myteams');
+        } else {
+            flash('virtual_team_message', 'Une erreur est survenue lors de la création de l\'équipe', 'alert alert-danger');
+            $this->view('virtualteam/create', $data);
+        }
+    } else {
+        // Display create form
+        $data = [
+            'team_name' => ''
+        ];
+        
+        $this->view('virtualteam/create', $data);
+    }
+}
 }

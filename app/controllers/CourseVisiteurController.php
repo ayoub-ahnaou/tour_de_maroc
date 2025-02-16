@@ -1,6 +1,5 @@
 <?php
 
-
 use TourDeMaroc\App\models\courses;
 
 

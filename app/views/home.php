@@ -2,6 +2,7 @@
 <!-- <div class="w-full">
     <img src="<?= URL_ROOT ?>/public/assets/images/d8b28.jfif" class="w-full object-cover" alt="">
 </div> -->
+<?php extract($data); ?>
 
 <div class="relative h-screen w-full">
     <!-- Background Image with Overlay -->
@@ -39,7 +40,6 @@
             <!-- Header Section -->
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-xl font-bold">VIDÉOS À LA UNE</h2>
-                <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
             </div>
 
             <!-- Featured Videos Grid -->
@@ -79,32 +79,15 @@
                 <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 text-sm">
-                <!-- Stage 1 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 1" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 1 | 05/07</h3>
-                        <p>LILLE - ROUBAIX</p>
+                <?php foreach ($etapes as $etape): ?>
+                    <div class="relative overflow-hidden shadow-lg">
+                        <img src="https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg" alt="Étape 1" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <a href="<?= URL_ROOT ?>/etapes/etape/<?= $etape->getOrdre(); ?>" class="text-lg font-bold">ÉTAPE <?= $etape->getOrdre(); ?> | <?= $etape->getDate(); ?></a>
+                            <p><?= $etape->getLieuDeDepart(); ?> - <?= $etape->getLieuDarrivee(); ?></p>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Stage 2 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 2" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 2 | 06/07</h3>
-                        <p>LA VILLE BLANCHE</p>
-                    </div>
-                </div>
-
-                <!-- Stage 3 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 3" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 3 | 07/07</h3>
-                        <p>VALENCIENNES</p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
@@ -113,21 +96,20 @@
             <div class="bg-white shadow-lg pt-8 pb-4 px-4">
                 <h2 class="text-lg font-bold mb-6">CLASSEMENT GÉNÉRAL</h2>
                 <div class="space-y-4">
-                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                    <?php $counter = 1; foreach ($classements as $classement): ?>
                         <!-- Ranking Items -->
                         <div class="grid grid-cols-12 items-center gap-4 hover:bg-gray-50 p-2 text-xs">
-                            <div class="col-span-1 font-bold"><?= $i ?></div>
+                            <div class="col-span-1 font-bold"><?= $counter++; ?></div>
                             <div class="col-span-1">
                                 <img src="<?= URL_ROOT ?>/public/assets/icons/flag.svg">
                             </div>
-                            <div class="col-span-4 font-bold">Tadej POGACAR</div>
-                            <div class="col-span-4 text-gray-600">UAE TEAM EMIRATES</div>
-                            <div class="col-span-2 text-right text-gray-600">83h 38' 56"</div>
+                            <div class="col-span-4 font-bold"><?= $classement["prenom_utilisateur"] . " " . $classement["nom_utilisateur"]; ?></div>
+                            <div class="col-span-2 text-right text-gray-600"><?= $classement["total_time"] ?></div>
                         </div>
-                    <?php } ?>
+                    <?php endforeach; ?>
                     <!-- Add more ranking items following the same pattern -->
                 </div>
-                <a href="#" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
+                <a href="<?= URL_ROOT ?>/classements/general" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
                     CLASSEMENT COMPLET
                 </a>
             </div>
@@ -142,18 +124,19 @@
         <!-- Search Container -->
         <div class="bg-white shadow-lg p-6">
             <!-- Main Search Bar -->
-            <div class="relative mb-6 flex">
+            <form class="relative mb-6 flex" action="<?= URL_ROOT ?>/search/results" method="post">
                 <input
                     type="text"
+                    name="search"
                     placeholder="Rechercher des événements, étapes, coureurs..."
                     class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none" />
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-3 top-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <button class="px-6 py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white font-medium">
+                <button type="submit" class="px-6 py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white font-medium">
                     Rechercher
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 </section>

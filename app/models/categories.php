@@ -14,7 +14,6 @@ class categories{
    
     }
 
-    // gettters
     public function getId(){
        return $this->categorie_id;
     }

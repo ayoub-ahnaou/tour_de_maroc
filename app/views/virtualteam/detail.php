@@ -1,5 +1,5 @@
 <?php require APP_ROOT . '/public/components/header.php';
-use TourDeMaroc\App\Libraries\Helper;
+require_once APP_ROOT . '/app/libraries/flash_helper.php';;
 ?>
 
 <div class="container mx-auto px-4 py-8">
@@ -20,7 +20,7 @@ use TourDeMaroc\App\Libraries\Helper;
     </div>
 
     <!-- Flash Messages -->
-    <?php TourDeMaroc\App\Libraries\flash('virtual_team_message'); ?>
+    <?php flash('virtual_team_message'); ?>
 
     <!-- Main Content Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -88,7 +88,7 @@ use TourDeMaroc\App\Libraries\Helper;
         </div>
 
         <!-- Right Column - Add Cyclist Form -->
-        <?php if ($data['team']->fan_id === $_SESSION['user_id']) : ?>
+        <?php if ($data['team']->fan_id === $_SESSION['utilisateur_id']) : ?>
             <div class="bg-white rounded-xl shadow-sm border border-gray-200">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Ajouter un cycliste</h2>
