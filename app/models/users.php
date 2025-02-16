@@ -80,7 +80,7 @@ class users{
        $stmt = $bd->prepare($sql); 
        $stmt->bindValue(":email", $email);
         $stmt->execute(); 
-       $resultat = $stmt->fetch(\PDO::FETCH_ASSOC); 
+       $resultat = $stmt->fetchAll(\PDO::FETCH_ASSOC);
        return $resultat; 
       }
 

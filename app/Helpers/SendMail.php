@@ -16,13 +16,13 @@ class SendMail
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'essadeq.billouche.oa@gmail.com';
-            $mail->Password = 'your-email-password';
+            $mail->Username = 'essadeq.billouche@gmail.com';
+            $mail->Password = 'vlbe fudl fzgt cote';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             // Email Headers
-            $mail->setFrom('noreply@yourwebsite.com', 'Tour De Maroc');
+            $mail->setFrom('noreply@EssadeqBillouche.com', 'Tour De Maroc');
             $mail->addAddress($emailDestination);
 
             // Email Content

@@ -1,7 +1,7 @@
 <?php
 
 define("HOST_NAME", "localhost");
-define("DATABASE_NAME", "tour_de_maroc_db_1");
+define("DATABASE_NAME", "tour_de_maroc_2");
 define("USER_NAME", "postgres");
 define("PASSWORD", "    ");
 

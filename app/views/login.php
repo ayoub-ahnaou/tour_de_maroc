@@ -8,60 +8,64 @@
     <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/input.css">
 </head>
 <body>
-    <div class="bg-gray-50 min-h-screen flex items-center justify-center py-8">
-        <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-lg font-bold mb-6 text-center">Formulaire de connexion</h2>
-            
+<div class="bg-gray-50 min-h-screen flex items-center justify-center py-8">
+    <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-lg font-bold mb-6 text-center">Formulaire de connexion</h2>
 
-<!-- Affichage du message de notification (succès ou erreur) -->
-<?php if (isset($messageKey) && isset($messages[$messageKey])): ?>
-                <div class="max-w-md mx-auto mb-4 p-3 rounded-md text-white <?php echo $messages[$messageKey]['style']; ?>">
-                    <?php echo $messages[$messageKey]['message']; ?>
-                </div>
-            <?php endif; ?>
+        <!-- Affichage du message de notification (succès ou erreur) -->
+        <?php if (isset($messageKey) && isset($messages[$messageKey])): ?>
+            <div class="max-w-md mx-auto mb-4 p-3 rounded-md text-white <?php echo $messages[$messageKey]['style']; ?>">
+                <?php echo $messages[$messageKey]['message']; ?>
+            </div>
+        <?php endif; ?>
 
-
-
-            <form action="" method="POST" class="space-y-4">
-                <!-- Email -->
-                <div class="space-y-1">
-                    <label for="email" class="block text-sm font-bold text-gray-700">
-                        Email :
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
+        <form action="" method="POST" class="space-y-4">
+            <!-- Email -->
+            <div class="space-y-1">
+                <label for="email" class="block text-sm font-bold text-gray-700">
+                    Email :
+                </label>
+                <input
+                        type="email"
+                        id="email"
+                        name="email"
                         required
                         class="w-full px-2.5 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-                    >
-                </div>
-                
-                <!-- Mot de passe -->
-                <div class="space-y-1">
-                    <label for="password" class="block text-sm font-bold text-gray-700">
-                        Mot de passe :
-                    </label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="mot_de_passe" 
+                >
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="space-y-1">
+                <label for="password" class="block text-sm font-bold text-gray-700">
+                    Mot de passe :
+                </label>
+                <input
+                        type="password"
+                        id="password"
+                        name="mot_de_passe"
                         required
                         class="w-full px-2.5 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-                    >
-                </div>
-                
-                <!-- Bouton de connexion -->
-                <div class="pt-3">
-                    <button 
-                        type="submit" 
+                >
+            </div>
+
+            <!-- Bouton de connexion -->
+            <div class="pt-3">
+                <button
+                        type="submit"
                         class="w-full bg-black text-white py-2.5 px-4 rounded-md hover:bg-gray-800 transition duration-200"
-                    >
-                        Se connecter
-                    </button>
-                </div>
-            </form>
-        </div>
+                >
+                    Se connecter
+                </button>
+            </div>
+
+            <!-- Lien Mot de passe oublié -->
+            <div class="text-center pt-2">
+                <a href="<?php echo URL_ROOT?>/ResetPassword/mot_de_passe_oublie" class="text-sm text-yellow-600 hover:text-yellow-700 transition duration-200">
+                    Mot de passe oublié ?
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 </html>
