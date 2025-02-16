@@ -140,3 +140,66 @@ CREATE TABLE Cycliste_Etape (
     etape_id INT NOT NULL REFERENCES Etape(etape_id) ON DELETE CASCADE,
     temps INTERVAL NOT NULL
 );
+ALTER TABLE Course
+ADD COLUMN categorie_id INT NOT NULL;
+
+ALTER TABLE Course
+ADD CONSTRAINT fk_categorie
+FOREIGN KEY (categorie_id) REFERENCES Categorie(categorie_id)
+ON DELETE CASCADE;
+
+ALTER TABLE Cycliste DROP COLUMN IF EXISTS equipe;
+CREATE TABLE VirtualTeam (
+    virtual_team_id SERIAL PRIMARY KEY,
+    fan_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE CASCADE, -- Corrected: References Utilisateur
+    team_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE VirtualTeamCyclist (
+    virtual_team_cyclist_id SERIAL PRIMARY KEY,
+    virtual_team_id INT NOT NULL REFERENCES VirtualTeam(virtual_team_id) ON DELETE CASCADE,
+    cycliste_id INT NOT NULL REFERENCES Utilisateur(utilisateur_id) ON DELETE SET NULL -- Corrected: References Utilisateur
+);
+ALTER TABLE Commentaire
+ADD COLUMN contenu TEXT NOT NULL;
+
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'comment_status') THEN
+        CREATE TYPE comment_status AS ENUM ('pending', 'approved', 'rejected');
+    END IF;
+END $$;
+ALTER TABLE commentaire
+    ALTER COLUMN commentaire_id SET DEFAULT nextval('commentaire_commentaire_id_seq'), -- Ensure auto-increment
+    ALTER COLUMN commentaire_id SET NOT NULL,
+    ALTER COLUMN auteur_id SET NOT NULL,
+    ALTER COLUMN etape_id SET NOT NULL,
+    ALTER COLUMN contenu SET NOT NULL,
+    ADD COLUMN IF NOT EXISTS status comment_status DEFAULT 'pending',
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE utilisateur 
+ADD COLUMN prenom_utilisateur VARCHAR(255);
+ALTER TABLE course
+DROP COLUMN categorie_id;
+
+ALTER TABLE categorie
+ADD COLUMN course_id INT ;
+
+ALTER TABLE categorie
+ADD CONSTRAINT fk_course
+FOREIGN KEY (course_id) REFERENCES course(course_id)
+ON DELETE CASCADE;
+
+ALTER TABLE Etape ADD COLUMN ordre INTEGER UNIQUE
+alter table etape add column duree interval;
+
+CREATE TABLE ResetPassword (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    reset_token_hash VARCHAR(64) NULL DEFAULT NULL,
+    reset_token_expires_at TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT reset_token_hash_unique UNIQUE (reset_token_hash),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES utilisateur(utilisateur_id)
+);

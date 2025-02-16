@@ -56,5 +56,13 @@ class Commentaire {
     {
         $this->etape_id = $etape_id;
     }
+    public function getContenu()
+    {
+        return $this->contenu;
+    }
+    public function setContenu($contenu): void
+    {
+        $this->contenu = $contenu;
+    }
 
 }

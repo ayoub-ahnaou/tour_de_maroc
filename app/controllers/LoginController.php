@@ -1,7 +1,8 @@
 <?php
+
 use TourDeMaroc\App\models\users;
 
-class LoginController extends controller {
+class LoginController extends Controller {
     public function index() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
