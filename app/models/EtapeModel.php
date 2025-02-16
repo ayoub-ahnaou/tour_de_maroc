@@ -138,4 +138,11 @@ class EtapeModel {
 
         return $etapes;
     }
+
+    public function getTotalEtapesDistance() {
+        $sql = "SELECT SUM(distance) as total_distance FROM etape";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }
