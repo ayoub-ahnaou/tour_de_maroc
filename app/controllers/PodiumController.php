@@ -1,6 +1,5 @@
 <?php
 
-use TourDeMaroc\App\libraries\Controller;
 use TourDeMaroc\App\models\CyclistModel;
 use TourDeMaroc\App\models\EtapeModel;
 
