@@ -79,7 +79,7 @@
                 <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 text-sm">
-                <?php foreach($etapes as $etape): ?>
+                <?php foreach ($etapes as $etape): ?>
                     <div class="relative overflow-hidden shadow-lg">
                         <img src="https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg" alt="Étape 1" class="w-full h-80 object-cover">
                         <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
@@ -96,18 +96,17 @@
             <div class="bg-white shadow-lg pt-8 pb-4 px-4">
                 <h2 class="text-lg font-bold mb-6">CLASSEMENT GÉNÉRAL</h2>
                 <div class="space-y-4">
-                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                    <?php $counter = 1; foreach ($classements as $classement): ?>
                         <!-- Ranking Items -->
                         <div class="grid grid-cols-12 items-center gap-4 hover:bg-gray-50 p-2 text-xs">
-                            <div class="col-span-1 font-bold"><?= $i ?></div>
+                            <div class="col-span-1 font-bold"><?= $counter++; ?></div>
                             <div class="col-span-1">
                                 <img src="<?= URL_ROOT ?>/public/assets/icons/flag.svg">
                             </div>
-                            <div class="col-span-4 font-bold">Tadej POGACAR</div>
-                            <div class="col-span-4 text-gray-600">UAE TEAM EMIRATES</div>
-                            <div class="col-span-2 text-right text-gray-600">83h 38' 56"</div>
+                            <div class="col-span-4 font-bold"><?= $classement["prenom_utilisateur"] . " " . $classement["nom_utilisateur"]; ?></div>
+                            <div class="col-span-2 text-right text-gray-600"><?= $classement["total_time"] ?></div>
                         </div>
-                    <?php } ?>
+                    <?php endforeach; ?>
                     <!-- Add more ranking items following the same pattern -->
                 </div>
                 <a href="<?= URL_ROOT ?>/classements/general" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
