@@ -1,7 +1,6 @@
 <?php require APP_ROOT . '/views/includes/header.php'; ?>
 
 <div class="container mx-auto px-4 py-8">
-   
     <div class="mb-8">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
@@ -14,9 +13,6 @@
                 <h1 class="text-3xl font-bold text-gray-900">
                     <?php echo htmlspecialchars($data['team']->team_name); ?>
                 </h1>
-            </div>
-            <div class="text-sm text-gray-500">
-                Créé le <?php echo date('d/m/Y', strtotime($data['team']->created_at)); ?>
             </div>
         </div>
     </div>
@@ -39,7 +35,7 @@
                 <?php if (empty($data['cyclists'])) : ?>
                     <div class="text-center py-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0[...]" />
                         </svg>
                         <p class="mt-4 text-gray-500">Aucun cycliste dans cette équipe</p>
                         <p class="text-sm text-gray-400">Ajoutez des cyclistes pour commencer</p>
@@ -77,7 +73,7 @@
                                         <input type="hidden" name="team_id" value="<?php echo $data['team']->virtual_team_id; ?>">
                                         <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.[...]" />
                                             </svg>
                                         </button>
                                     </form>
@@ -112,7 +108,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                            <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-[...]">
                                 Ajouter à l'équipe
                             </button>
                         </div>

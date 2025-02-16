@@ -2,12 +2,15 @@
 namespace TourDeMaroc\App\models;
 
 use TourDeMaroc\App\libraries\Database;
+use PDO;
 
 class VirtualTeamCyclistModel {
     private $db;
+    private $connection;
 
     public function __construct() {
         $this->db = Database::getInstance();
+        $this->connection = $this->db->getConnection();
     }
 
     public function searchCyclists($term) {
@@ -39,14 +42,17 @@ class VirtualTeamCyclistModel {
         return $this->db->single();
     }
 
-
     public function getCyclistsInTeam($teamId) {
-        $this->db->query("SELECT u.* 
-                         FROM utilisateur u
-                         JOIN virtualteamcyclist vtc ON u.utilisateur_id = vtc.cycliste_id
-                         WHERE vtc.virtual_team_id = :team_id");
+        $stmt = $this->connection->prepare(
+            "SELECT u.* 
+             FROM utilisateur u
+             JOIN virtualteamcyclist vtc ON u.utilisateur_id = vtc.cycliste_id
+             WHERE vtc.virtual_team_id = :team_id"
+        );
         
-        $this->db->bind(':team_id', $teamId);
-        return $this->db->resultSet();
+        $stmt->bindValue(':team_id', $teamId, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

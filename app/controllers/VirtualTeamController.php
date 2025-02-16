@@ -29,7 +29,6 @@ class VirtualTeamController extends Controller
 
         $virtualTeams = $this->virtualTeamModel->getVirtualTeamsByFanId($fanId);
         
-        // Get the user data
         $userData = $this->userModel->GetUserById($fanId);
         
         $data = [
@@ -40,15 +39,17 @@ class VirtualTeamController extends Controller
         $this->view('virtualteam/myteams', $data);
     }
 
-
     public function detail(int $teamId)
     {
-        $virtualTeam = $this->virtualTeamModel->getVirtualTeamById($teamId);
-        $cyclistsInTeam = $this->virtualTeamCyclistModel->getCyclistsInTeam($teamId);
+        $team = $this->virtualTeamModel->getVirtualTeamById($teamId);
+        $cyclists = $this->virtualTeamCyclistModel->getCyclistsInTeam($teamId);
 
-        if ($virtualTeam) {
-            $data['virtualTeam'] = $virtualTeam;
-            $data['cyclists'] = $cyclistsInTeam;
+        if ($team) {
+            $data = [
+                'team' => $team,           // Changed from 'virtualTeam' to 'team' to match view
+                'cyclists' => $cyclists,
+                'user_id' => $_SESSION['utilisateur_id'] ?? null  // Added to properly check permissions
+            ];
             $this->view('virtualteam/detail', $data);
         } else {
             echo "Virtual team not found.";
@@ -56,39 +57,38 @@ class VirtualTeamController extends Controller
     }
 
     public function addCyclist()
-{
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data = [
-            'virtual_team_id' => $_POST['virtual_team_id'],
-            'cyclist_name' => trim($_POST['cyclist_name'])
-        ];
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                'virtual_team_id' => $_POST['virtual_team_id'],
+                'cyclist_name' => trim($_POST['cyclist_name'])
+            ];
 
-        // Get cyclist ID from name
-        $cyclist = $this->virtualTeamCyclistModel->getCyclistByName($data['cyclist_name']);
-        
-        if (!$cyclist) {
-            flash('virtual_team_message', 'Cycliste non trouvé', 'alert alert-danger');
-            redirect('virtualteam/detail/' . $data['virtual_team_id']);
-        }
+            $cyclist = $this->virtualTeamCyclistModel->getCyclistByName($data['cyclist_name']);
+            
+            if (!$cyclist) {
+                flash('virtual_team_message', 'Cycliste non trouvé', 'alert alert-danger');
+                redirect('virtualteam/detail/' . $data['virtual_team_id']);
+            }
 
-        if ($this->virtualTeamCyclistModel->addCyclistToTeam($data['virtual_team_id'], $cyclist->utilisateur_id)) {
-            flash('virtual_team_message', 'Cycliste ajouté avec succès', 'alert alert-success');
-            redirect('virtualteam/detail/' . $data['virtual_team_id']);
-        } else {
-            flash('virtual_team_message', 'Erreur lors de l\'ajout du cycliste', 'alert alert-danger');
-            redirect('virtualteam/detail/' . $data['virtual_team_id']);
+            if ($this->virtualTeamCyclistModel->addCyclistToTeam($data['virtual_team_id'], $cyclist->utilisateur_id)) {
+                flash('virtual_team_message', 'Cycliste ajouté avec succès', 'alert alert-success');
+                redirect('virtualteam/detail/' . $data['virtual_team_id']);
+            } else {
+                flash('virtual_team_message', 'Erreur lors de l\'ajout du cycliste', 'alert alert-danger');
+                redirect('virtualteam/detail/' . $data['virtual_team_id']);
+            }
         }
     }
-}
 
-public function searchCyclists($term = '')
-{
-    if (empty($term)) {
-        echo json_encode([]);
-        return;
+    public function searchCyclists($term = '')
+    {
+        if (empty($term)) {
+            echo json_encode([]);
+            return;
+        }
+
+        $cyclists = $this->virtualTeamCyclistModel->searchCyclists($term);
+        echo json_encode($cyclists);
     }
-
-    $cyclists = $this->virtualTeamCyclistModel->searchCyclists($term);
-    echo json_encode($cyclists);
-}
 }
