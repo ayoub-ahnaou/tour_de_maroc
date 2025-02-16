@@ -127,7 +127,7 @@
                     <?php } ?>
                     <!-- Add more ranking items following the same pattern -->
                 </div>
-                <a href="#" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
+                <a href="<?= URL_ROOT ?>/classements/general" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
                     CLASSEMENT COMPLET
                 </a>
             </div>
@@ -142,18 +142,19 @@
         <!-- Search Container -->
         <div class="bg-white shadow-lg p-6">
             <!-- Main Search Bar -->
-            <div class="relative mb-6 flex">
+            <form class="relative mb-6 flex" action="<?= URL_ROOT ?>/search/results" method="post">
                 <input
                     type="text"
+                    name="search"
                     placeholder="Rechercher des événements, étapes, coureurs..."
                     class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none" />
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-3 top-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <button class="px-6 py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white font-medium">
+                <button type="submit" class="px-6 py-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white font-medium">
                     Rechercher
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 </section>

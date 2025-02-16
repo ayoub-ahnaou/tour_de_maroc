@@ -9,9 +9,9 @@ class EtapesController extends Controller {
         $this->view("etapes/etapes");
     }
 
-    public function etape($id) {
-        echo $id;
-        $this->view("etapes/etapeDetails");
+    public function etape($ordre) {
+        $etape = (new EtapeModel())->getEtapeByOrdre($ordre);
+        $this->view("etapes/etapeDetails", compact("etape"));
     }
 
     public function editEtape($id) {
@@ -75,8 +75,6 @@ class EtapesController extends Controller {
             // Vérification de la durée
             if (empty(trim($_POST["duree"]))) {
                 $duree_err = "La durée est requise.";
-            } elseif (!is_numeric($_POST["duree"])) {
-                $duree_err = "Veuillez entrer une valeur numérique.";
             } else {
                 $duree = trim($_POST["duree"]);
             }
@@ -89,7 +87,7 @@ class EtapesController extends Controller {
             }
 
             $res = (new EtapeModel())->createEtape($ordre, $lieu_depart, $lieu_arrive, $distance, $difficulte, $date, $duree, $categorie);
-            var_dump($res);
+            $this->redirect("/dashboard/etapes");
         }
         $categories = (new CategorieModel())->getAllCategories();
 
