@@ -2,6 +2,7 @@
 
 namespace TourDeMaroc\App\models;
 
+use PDO;
 use TourDeMaroc\App\Entity\Commentaire;
 use TourDeMaroc\App\libraries\Database;
 
