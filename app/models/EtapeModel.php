@@ -117,4 +117,25 @@ class EtapeModel {
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    public function getFirstThreeEtapes() {
+        $sql = "SELECT e.*, nom as categorie FROM etape e join categorie c on c.categorie_id = e.categorie_id ORDER BY ordre ASC LIMIT 3";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        $etapes = [];
+
+        foreach($res as $etape) {
+            $timeformat = explode(":", $etape["duree"]);
+            $duree = "";
+    
+            if($timeformat[0] > 0) $duree .= intval($timeformat[0]) . "hours ";
+            if($timeformat[1] > 0) $duree .= intval($timeformat[1]) . "mniutes ";
+    
+            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $duree);
+            $etape->setCategorie($etape["categorie"]);
+        }
+
+        return $etapes;
+    }
 }
