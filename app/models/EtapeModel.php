@@ -46,6 +46,44 @@ class EtapeModel {
         }
     }
 
+    public function getTopThreeCyclists() {
+        $query = "
+            SELECT 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids,
+                SUM(ce.temps) as temps_total
+            FROM 
+                cycliste c
+                INNER JOIN cycliste_etape ce ON c.utilisateur_id = ce.cycliste_id
+            GROUP BY 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids
+            ORDER BY 
+                temps_total ASC
+            LIMIT 3
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getEtapeByOrdre($ordre) {
         $sql = "SELECT e.*, nom as categorie FROM etape e join categorie c on c.categorie_id = e.categorie_id WHERE ordre = :ordre";
         $stmt = $this->db->prepare($sql);

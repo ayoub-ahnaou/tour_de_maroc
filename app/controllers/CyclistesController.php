@@ -1,5 +1,6 @@
 <?php
 use TourDeMaroc\App\Entity\Cycliste;
+use TourDeMaroc\App\Models\CyclistModel;
 use TourDeMaroc\App\Models\QuestionModel;
 
 class CyclistesController extends Controller

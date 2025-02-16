@@ -1,7 +1,9 @@
 <?php
+
+use TourDeMaroc\App\libraries\Controller;
 use TourDeMaroc\App\models\users;
 
-class SignupController extends controller {
+class SignupController extends Controller {
     public function index() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nom_utilisateur = trim($_POST["nom_utilisateur"]);
