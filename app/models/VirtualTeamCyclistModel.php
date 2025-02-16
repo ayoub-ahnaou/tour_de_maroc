@@ -55,4 +55,13 @@ class VirtualTeamCyclistModel {
         
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function removeCyclistFromTeam($teamId, $cyclistId)
+{
+    $this->db->query('DELETE FROM virtual_team_cyclist WHERE virtual_team_id = :team_id AND cyclist_id = :cyclist_id');
+    $this->db->bind(':team_id', $teamId);
+    $this->db->bind(':cyclist_id', $cyclistId);
+    
+    return $this->db->execute();
+}
 }

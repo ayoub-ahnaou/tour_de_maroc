@@ -91,4 +91,27 @@ class VirtualTeamController extends Controller
         $cyclists = $this->virtualTeamCyclistModel->searchCyclists($term);
         echo json_encode($cyclists);
     }
+
+    public function removeCyclist()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $teamId = $_POST['team_id'];
+        $cyclistId = $_POST['cyclist_id'];
+
+        // Check if the current user owns the team
+        $team = $this->virtualTeamModel->getVirtualTeamById($teamId);
+        if ($team->fan_id !== $_SESSION['utilisateur_id']) {
+            flash('virtual_team_message', 'Vous n\'avez pas la permission de modifier cette équipe', 'alert alert-danger');
+            redirect('virtualteam/detail/' . $teamId);
+            return;
+        }
+
+        if ($this->virtualTeamCyclistModel->removeCyclistFromTeam($teamId, $cyclistId)) {
+            flash('virtual_team_message', 'Cycliste retiré avec succès', 'alert alert-success');
+        } else {
+            flash('virtual_team_message', 'Erreur lors du retrait du cycliste', 'alert alert-danger');
+        }
+        redirect('virtualteam/detail/' . $teamId);
+    }
+}
 }

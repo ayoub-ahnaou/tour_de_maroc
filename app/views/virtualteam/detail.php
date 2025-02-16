@@ -1,4 +1,6 @@
-<?php require APP_ROOT . '/views/includes/header.php'; ?>
+<?php require APP_ROOT . '/public/components/header.php';
+use TourDeMaroc\App\Libraries\Helper;
+?>
 
 <div class="container mx-auto px-4 py-8">
     <div class="mb-8">
@@ -18,7 +20,7 @@
     </div>
 
     <!-- Flash Messages -->
-    <?php flash('virtual_team_message'); ?>
+    <?php TourDeMaroc\App\Libraries\flash('virtual_team_message'); ?>
 
     <!-- Main Content Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -67,7 +69,7 @@
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <?php if ($data['team']->fan_id === $_SESSION['user_id']) : ?>
+                                <?php if ($data['team']->fan_id === $_SESSION['utilisateur_id']) : ?>
                                     <form action="<?php echo URL_ROOT; ?>/virtualteam/removeCyclist" method="POST" class="flex-shrink-0">
                                         <input type="hidden" name="cyclist_id" value="<?php echo $cyclist->utilisateur_id; ?>">
                                         <input type="hidden" name="team_id" value="<?php echo $data['team']->virtual_team_id; ?>">
@@ -191,4 +193,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require APP_ROOT . '/views/includes/footer.php'; ?>
+<?php require APP_ROOT . '/public/components/header.php'; ?>
