@@ -1,6 +1,5 @@
 <?php
 
-use TourDeMaroc\App\libraries\Controller;
 use TourDeMaroc\App\Libraries\Session;
 use TourDeMaroc\App\models\AbonnementModel;
 
