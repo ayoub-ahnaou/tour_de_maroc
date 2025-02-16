@@ -1,8 +1,8 @@
 <?php
 
 use TourDeMaroc\App\Entity\Commentaire;
-
 use TourDeMaroc\App\models\CommentModel;
+
 class CommentsController extends Controller
 {
     private $model;
@@ -21,7 +21,8 @@ class CommentsController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['AddComment'])) {
             $newComment = new Commentaire($_SESSION['id'], $idEquip, $_POST['content'], null);
-            $this->model->AddComment($newComment);
+            $newCommentModel = new CommentModel();
+
         }
     }
 
