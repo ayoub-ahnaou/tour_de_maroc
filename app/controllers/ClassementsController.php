@@ -5,7 +5,13 @@ use TourDeMaroc\App\models\EtapeModel;
 
 class ClassementsController extends Controller {
     public function general() {
-        $this->view("classements/classements");
+        $total_distance = (new EtapeModel())->getTotalEtapesDistance();
+        $classements = (new ClassementModel())->getClassementGeneral();
+        $this->view("classements/classements", compact("classements", "total_distance"));
+    }
+
+    public function index() {
+        header("location: " . URL_ROOT . "/classements/general");
     }
 
     public function etape($ordre) {
