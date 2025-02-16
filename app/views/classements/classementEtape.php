@@ -45,59 +45,27 @@
             <div>Rang</div>
             <div>Cycliste</div>
             <div>Nationalite</div>
-            <div>Équipe</div>
             <div>Temps</div>
             <div>Diffirence</div>
         </div>
 
         <!-- Results rows -->
         <div class="divide-y">
-            <!-- Row 1 -->
-            <div class="grid grid-cols-6 py-4 bg-green-100">
-                <div class="flex items-center">
-                    <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-black font-bold">1</span>
+            <?php $counter = 1;
+            foreach ($classements as $classement): ?>
+                <div class="grid grid-cols-6 py-4 <?= $counter == 1 ? 'bg-green-100' : ''; ?> ">
+                    <div class="flex items-center">
+                        <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-black font-bold"><?= $counter++; ?></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <!-- <img src="https://img.aso.fr/core_app/img-cycling-tdf-png/71/56045/0:0,400:400-300-0-70/56f65" alt="SI" class="w-6"> -->
+                        <span><?php echo $classement["prenom_utilisateur"] . " " . $classement["nom_utilisateur"]; ?></span>
+                    </div>
+                    <div>Nationalite</div>
+                    <div><?= $classement["temps"]; ?></div>
+                    <div class="text-yellow-600"><?= $classement["difference"] == 0 ? '-' : $classement["difference"]; ?></div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-png/71/56045/0:0,400:400-300-0-70/56f65" alt="SI" class="w-6">
-                    <span>T. POGACAR</span>
-                </div>
-                <div>France</div>
-                <div>UAE TEAM EMIRATES</div>
-                <div>83h 30' 56"</div>
-                <div class="text-yellow-600">-</div>
-            </div>
-
-            <!-- Row 2 -->
-            <div class="grid grid-cols-6 py-4 bg-white">
-                <div class="flex items-center">
-                    <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-black font-bold">2</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-png/1/56074/0:0,400:400-300-0-70/8b05c" alt="DK" class="w-6">
-                    <span>J. VINGEGAARD</span>
-                </div>
-                <div>Belgique</div>
-                <div>TEAM VISMA | LEASE A BIKE</div>
-                <div>83h 45' 15"</div>
-                <div class="text-yellow-600">+00h 06' 19"</div>
-            </div>
-
-            <!-- Row 3 -->
-            <div class="grid grid-cols-6 py-4">
-                <div class="flex items-center">
-                    <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-black font-bold">3</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-png/11/56077/0:0,400:400-300-0-70/47a4b" alt="BE" class="w-6">
-                    <span>R. EVENEPOEL</span>
-                </div>
-                <div>Saudi Arabia</div>
-                <div>SOUDAL QUICK-STEP</div>
-                <div>83h 48' 14"</div>
-                <div class="text-yellow-600">+00h 09' 18"</div>
-            </div>
-
-            <!-- Additional rows... -->
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

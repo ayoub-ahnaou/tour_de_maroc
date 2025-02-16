@@ -2,6 +2,7 @@
 <!-- <div class="w-full">
     <img src="<?= URL_ROOT ?>/public/assets/images/d8b28.jfif" class="w-full object-cover" alt="">
 </div> -->
+<?php extract($data); ?>
 
 <div class="relative h-screen w-full">
     <!-- Background Image with Overlay -->
@@ -39,7 +40,6 @@
             <!-- Header Section -->
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-xl font-bold">VIDÉOS À LA UNE</h2>
-                <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
             </div>
 
             <!-- Featured Videos Grid -->
@@ -79,32 +79,15 @@
                 <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 text-sm">
-                <!-- Stage 1 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 1" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 1 | 05/07</h3>
-                        <p>LILLE - ROUBAIX</p>
+                <?php foreach ($etapes as $etape): ?>
+                    <div class="relative overflow-hidden shadow-lg">
+                        <img src="https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg" alt="Étape 1" class="w-full h-80 object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                            <a href="<?= URL_ROOT ?>/etapes/etape/<?= $etape->getOrdre(); ?>" class="text-lg font-bold">ÉTAPE <?= $etape->getOrdre(); ?> | <?= $etape->getDate(); ?></a>
+                            <p><?= $etape->getLieuDeDepart(); ?> - <?= $etape->getLieuDarrivee(); ?></p>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Stage 2 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 2" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 2 | 06/07</h3>
-                        <p>LA VILLE BLANCHE</p>
-                    </div>
-                </div>
-
-                <!-- Stage 3 -->
-                <div class="relative overflow-hidden shadow-lg">
-                    <img src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" alt="Étape 3" class="w-full h-80 object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
-                        <h3 class="text-lg font-bold">ÉTAPE 3 | 07/07</h3>
-                        <p>VALENCIENNES</p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
@@ -113,18 +96,17 @@
             <div class="bg-white shadow-lg pt-8 pb-4 px-4">
                 <h2 class="text-lg font-bold mb-6">CLASSEMENT GÉNÉRAL</h2>
                 <div class="space-y-4">
-                    <?php for ($i = 1; $i <= 10; $i++) { ?>
+                    <?php $counter = 1; foreach ($classements as $classement): ?>
                         <!-- Ranking Items -->
                         <div class="grid grid-cols-12 items-center gap-4 hover:bg-gray-50 p-2 text-xs">
-                            <div class="col-span-1 font-bold"><?= $i ?></div>
+                            <div class="col-span-1 font-bold"><?= $counter++; ?></div>
                             <div class="col-span-1">
                                 <img src="<?= URL_ROOT ?>/public/assets/icons/flag.svg">
                             </div>
-                            <div class="col-span-4 font-bold">Tadej POGACAR</div>
-                            <div class="col-span-4 text-gray-600">UAE TEAM EMIRATES</div>
-                            <div class="col-span-2 text-right text-gray-600">83h 38' 56"</div>
+                            <div class="col-span-4 font-bold"><?= $classement["prenom_utilisateur"] . " " . $classement["nom_utilisateur"]; ?></div>
+                            <div class="col-span-2 text-right text-gray-600"><?= $classement["total_time"] ?></div>
                         </div>
-                    <?php } ?>
+                    <?php endforeach; ?>
                     <!-- Add more ranking items following the same pattern -->
                 </div>
                 <a href="<?= URL_ROOT ?>/classements/general" class="block text-center bg-black text-white py-3 mt-6 hover:bg-gray-800">
