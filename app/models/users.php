@@ -1,20 +1,7 @@
 <?php 
 namespace TourDeMaroc\App\models;
 use TourDeMaroc\App\libraries\Database;
-$messages = [
-   'success' => [
-       'message' => 'Connexion réussie !',
-       'style' => 'bg-green-500'
-   ],
-   'error' => [
-       'message' => 'Erreur lors de la connexion, veuillez réessayer.',
-       'style' => 'bg-red-500'
-   ],
-   'info' => [
-       'message' => 'Veuillez vérifier vos informations.',
-       'style' => 'bg-blue-500'
-   ]
-];
+
 class users{
     private $nom;
     private $prenom;
@@ -91,8 +78,11 @@ class users{
          if ($user) { 
              if (password_verify($password, $user['mot_de_passe'])) { 
                  session_start(); 
+                //  set("id", 1)
                  $_SESSION["utilisateur_id"] = $user['utilisateur_id']; 
                  $_SESSION["nom_utilisateur"] = $user['nom_utilisateur']; 
+                 $_SESSION["prenom_utilisateur"] = $user['prenom_utilisateur']; 
+
                  $_SESSION["role"] = $user['role']; 
      
                  return true; 

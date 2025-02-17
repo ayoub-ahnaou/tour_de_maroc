@@ -1,4 +1,5 @@
 <?php
+
 use TourDeMaroc\App\Entity\Cycliste;
 use TourDeMaroc\App\Models\CyclistModel;
 use TourDeMaroc\App\Models\QuestionModel;
@@ -40,6 +41,16 @@ class CyclistesController extends Controller
         (new CyclistModel())->soutenirCycliste($fan_id, $cycliste_id);
 
         $this->view("cyclistes/cyclisteDetails");
+    }
+
+    public function show(){
+
+        $cyclistes=new CyclistModel();
+        $cyclistesList = $cyclistes->getCyclist(); 
+        $data = compact("cyclistesList");
+        $this->view("cyclistes/cyclistes", $data );
+    
+       }
     }
 
     public function DeleteCycliste($id)

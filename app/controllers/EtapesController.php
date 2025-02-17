@@ -4,14 +4,18 @@ use TourDeMaroc\App\models\CategorieModel;
 use TourDeMaroc\App\models\EtapeModel;
 
 class EtapesController extends Controller {
-    public function index() {
-        $this->view("etapes/etapes");
+    
+    public function show($id){
+        $etape = new EtapeModel();
+        $etapes = $etape->getAllEtapesById($id); 
+        $this->view("etapesVisiteur",compact("etapes"));
     }
-
+      
     public function etape($ordre) {
         $etape = (new EtapeModel())->getEtapeByOrdre($ordre);
         $this->view("etapes/etapeDetails", compact("etape"));
     }
+
 
     public function editEtape($id) {
         $this->view("etapes/editEtape");
@@ -97,5 +101,41 @@ class EtapesController extends Controller {
         );
 
         $this->view("etapes/addEtape", $data);
+    }
+
+
+    public function showSteps() {
+        $etapesModel = new EtapeModel();
+    
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['region'], $_POST['difficulte'])) {
+            $region = $_POST['region'];
+            $difficulte = $_POST['difficulte'];
+    
+            if (empty($region) && empty($difficulte)) {
+                $etapesList = $etapesModel->getAllEtapes();
+            } else {
+                $etapesList = $etapesModel->getStepByFilter($region, $difficulte);
+            }
+        } else {
+            $etapesList = $etapesModel->getAllEtapes();
+        }
+    
+        $data = compact("etapesList");
+        $this->view("etapes/lesetapes", $data);
+    }
+    
+ 
+       public function filter() { 
+        if($_SERVER["REQUEST_METHOD"] === "POST"){ 
+            
+                $region = isset($_POST['region']) ? htmlspecialchars($_POST['region']) : '';
+                $difficulte = isset($_POST['difficulte']) ? htmlspecialchars($_POST['difficulte']) : '';
+                $etape = new EtapeModel();
+                $etape->getStepByFilter($region, $difficulte);
+          
+            $data = compact("etapesList");
+            
+            $this->view("etapes/lesetapes", $data);
+        }
     }
 }

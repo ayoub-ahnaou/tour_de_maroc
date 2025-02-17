@@ -1,5 +1,7 @@
 <?php
 
+use TourDeMaroc\App\models\CategorieModel;
+use TourDeMaroc\App\models\EtapeModel;
 use TourDeMaroc\App\Libraries\Session;
 use TourDeMaroc\App\models\AbonnementModel;
 
@@ -10,6 +12,10 @@ class FanController extends Controller
     public function __construct()
     {
         $this->abonnementModel = new AbonnementModel();
+    }
+  
+    public function index(){
+        $this->view("FanDash");
     }
 
     // Follow a cyclist

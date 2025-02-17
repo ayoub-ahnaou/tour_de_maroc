@@ -3,150 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course de Cyclisme - Montagne</title>
-    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/output.css">
-    <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/input.css">
-</head>
-<body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Home -->
-                <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold text-black hover:text-gray-700">
-                        TDF 2025
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="flex items-center space-x-4">
-                    <a href="<?= URL_ROOT . "/home"; ?>" class="text-gray-600 hover:text-gray-400 text-sm">ACCUEIL</a>
-                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">SE CONNECTER</a>
-                    <a href="#" class="bg-black text-white px-4 py-2 text-sm hover:bg-gray-800">S'INSCRIRE</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header Section avec image de couverture -->
-        <div class="w-full mb-8">
-            <img src="<?= URL_ROOT ?>/public/assets/images/d8b28.jfif" class="w-full h-64 object-cover" alt="Cover">
-        </div>
-
-        <!-- Grid des catégories -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <?php      extract($data); // Extraire $categoriesList     ?>  
-            <?php foreach($categoriesList as $categorie): ?>
-            <div class="relative overflow-hidden shadow-lg bg-white">
-                <!-- Image de la catégorie -->
-                <img 
-                    src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" 
-                    class="w-full h-48 object-cover" 
-                   
-                >
-                
-                <!-- Titre de la catégorie -->
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">
-                        <?= htmlspecialchars($course->getNom()) ?>
-                    </h2>
-                    
-                    <!-- Bouton voir plus -->
-                    <a href="#" class="block text-center bg-black text-white py-2 px-4 mt-4 hover:bg-gray-800">
-                        VOIR PLUS
-                    </a>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-black text-white mt-12">
-        <div class="container mx-auto px-4 py-8">
-            <div class="text-center">
-                <p class="text-sm">© 2025 Tour de France. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses de Cyclisme</title>
     <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/output.css">
     <link rel="stylesheet" href="<?= URL_ROOT ?>/public/css/input.css">
 </head>
-<body class="bg-gray-50">
-    <!-- Navbar (même que précédemment) -->
-    <nav class="bg-white shadow-lg">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
+<body class="bg-gray-100">
+    <!-- Navbar with gradient -->
+    <nav class="bg-gradient-to-r from-gray-900 to-gray-800 shadow-xl">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
                 <div class="flex items-center">
-                    <a href="#" class="text-xl font-bold text-black hover:text-gray-700">
+                    <a href="#" class="text-2xl font-extrabold text-white hover:text-yellow-400 transition duration-300">
                         TDF 2025
                     </a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">ACCUEIL</a>
-                    <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">SE CONNECTER</a>
-                    <a href="#" class="bg-black text-white px-4 py-2 text-sm hover:bg-gray-800">S'INSCRIRE</a>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-300 text-sm font-medium">ACCUEIL</a>
+                    <a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-300 text-sm font-medium">SE CONNECTER</a>
+                    <a href="#" class="bg-yellow-500 text-black px-6 py-2 rounded-full text-sm font-bold hover:bg-yellow-400 transition duration-300">S'INSCRIRE</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header Section -->
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-bold">NOS COURSES</h2>
-            <a href="#" class="text-gray-600 hover:text-gray-400 text-sm">VOIR TOUT ></a>
-        </div>
-
-        <!-- Course Card -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden w-80 h-[450px]"> <!-- Ajouter largeur et hauteur -->
-    <div class="relative">
-        <img 
-            src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9" 
-            class="w-full h-72 object-cover" 
-            alt="Tour du Maroc"
-        >
-        <div class="absolute bottom-0 left-0 bg-yellow-500 text-black px-3 py-1 m-2 text-sm">
-            #TOURDUMAROC2023
-        </div>
-    </div>
-    
-    <div class="p-6">
-        <h3 class="text-2xl font-bold mb-4">Tour du Maroc 2023</h3>
-        <div class="space-y-4">
-            <div class="flex items-center text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-                </svg>
-                <span>Du 21 Mai au 30 Mai 2023</span>
+    <div class="container mx-auto px-6 py-12">
+        <!-- Header Section with decorative element -->
+        <div class="flex justify-between items-center mb-12 border-b border-gray-200 pb-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-1 h-8 bg-yellow-500"></div>
+                <h2 class="text-2xl font-bold text-gray-900">NOS COURSES</h2>
             </div>
-            <div class="flex items-center text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            <a href="#" class="text-gray-600 hover:text-yellow-500 transition duration-300 text-sm font-medium flex items-center">
+                VOIR TOUT
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
-                <span>Maroc</span>
-            </div>
-        </div>
-        <div class="mt-6">
-            <a href="#" class="block text-center bg-black text-white py-3 hover:bg-gray-800">
-                VOIR LES ÉTAPES
             </a>
         </div>
-    </div>
-</div>
 
+        <!-- Course Card with hover effects -->
+        <div class="bg-white shadow-xl rounded-xl overflow-hidden w-96 transform hover:-translate-y-1 transition duration-300">
+            <div class="relative">
+                <img 
+                    src="https://img.aso.fr/core_app/img-cycling-tdf-jpg/1/61600/0:0,660:1000-660-0-30/551d9"
+                    class="w-full h-80 object-cover transition duration-300 hover:scale-105"
+                    alt="Tour du Maroc"
+                >
+                <div class="absolute top-0 right-0 bg-yellow-500 text-black px-4 py-2 m-4 rounded-full text-sm font-bold">
+                    #TOURDUMAROC2023
+                </div>
+            </div>
+
+            <div class="p-8">
+                <h3 class="text-2xl font-bold mb-6 text-gray-900">Tour du Maroc 2023</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center text-gray-600 group hover:text-yellow-500 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 group-hover:scale-110 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="font-medium">Du 21 Mai au 30 Mai 2023</span>
+                    </div>
+                    <div class="flex items-center text-gray-600 group hover:text-yellow-500 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 group-hover:scale-110 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="font-medium">Maroc</span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <a href="#" class="block text-center bg-black text-white py-4 rounded-lg font-bold hover:bg-yellow-500 hover:text-black transition duration-300">
+                        VOIR LES ÉTAPES
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

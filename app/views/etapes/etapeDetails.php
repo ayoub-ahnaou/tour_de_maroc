@@ -15,7 +15,7 @@ $isEtapeLiked = (new LikeModel())->isEtapeLiked($etape->getId(), 1);
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-yellow-400 text-sm">ÉTAPE <?= $etape->getOrdre(); ?></span>
-                    <h1 class="text-xl font-bold mt-1"><?= $etape->getLieuDeDepart(); ?> > <?= $etape->getLieuDarrivee(); ?></h1>
+                    <h1 class="text-xl font-bold mt-1"><?=$etape->getLieuDeDepart(); ?> > <?= $etape->getLieuDarrivee(); ?></h1>
                 </div>
                 <div class="text-right">
                     <span class="text-yellow-400 text-sm">Date</span>
@@ -95,11 +95,11 @@ $isEtapeLiked = (new LikeModel())->isEtapeLiked($etape->getId(), 1);
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-xl font-bold">Etapes</h3>
-                        <p class="text-gray-600">Basculer vers l'etape suivante</p>
+                        <p class="text-gray-600">Suivre une Etape pour recevoir les notifications</p>
                     </div>
                     <div class="flex gap-4">
                         <button class="flex items-center gap-2 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors">
-                            Etape suivante
+                            Suivre
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>

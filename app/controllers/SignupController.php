@@ -19,23 +19,23 @@ class SignupController extends Controller {
             }
         
             if ($mot_de_passe !== $confirmPassword) {
-                echo "Les mots de passe ne correspondent pas.";
+                echo "<script>alert('Les mots de passe ne correspondent pas.');</script>";
                 exit;
             }
         
             $user = new users();
             if ($user->VerifyEmail($email)) {
-                echo "Cet email est déjà utilisé.";
+                echo "<script>alert('Cet email est déjà utilisé.');</script>";
                 exit;                    
             }
         
             $hashedPassword = password_hash($mot_de_passe, PASSWORD_DEFAULT);
         
             if ($user->InsertUser($nom_utilisateur, $email, $hashedPassword, $role,$prenom_utilisateur)) {
-                echo "Inscription réussie !";
+                echo "<script>alert('inscription réussie');</script>";
                 exit;
             } else {
-                echo "Une erreur est survenue lors de l'inscription.";
+                echo "<script>alert('Une erreur est survenue lors de l'inscription.');</script>";
             }
         }
         $this->view("signup");

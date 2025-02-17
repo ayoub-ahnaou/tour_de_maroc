@@ -1,5 +1,5 @@
 <?php
-namespace TourDeMaroc\App\Models;
+namespace TourDeMaroc\App\models;
 
 use Exception;
 use PDO;
@@ -94,4 +94,41 @@ class CyclistModel
             throw new Exception("soutenir cycliste echouée: " . $e->getMessage());
         }
     }
+
+
+
+
+
+
+
+    public function getCyclist()
+    {
+        $stmt = $this->db->prepare('SELECT * FROM cycliste');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if (!$result) {
+            return []; 
+        }
+    
+        $cyclistes = [];
+        foreach ($result as $row) {
+            $cyclistes[] = new Cycliste(
+                $row['nom_utilisateur'],
+                $row['mot_de_passe'],
+                $row['email'],
+                $row['role'],
+                $row['prenom_utilisateur'], 
+                $row['date_de_naissance'],
+                $row['nationalite'],
+                $row['taille'],
+                $row['photo'],
+                $row['poids']
+            );
+        }
+    
+        return $cyclistes; 
+    }
+
+
 }

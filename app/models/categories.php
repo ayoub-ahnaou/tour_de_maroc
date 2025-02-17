@@ -24,17 +24,17 @@ class categories{
 
      public function SelectCategorie() {
         $db = database::getInstance()->getConnection();
-        $sql = "SELECT * FROM categorie";
+        $sql = "SELECT * FROM categorie ";
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
     
-        $categories = []; // ✅ Correction ici
+        $categories = []; 
         foreach($result as $row) {
             $obj = new self($row['categorie_id'], $row['nom']);
-            $categories[] = $obj;  // ✅ Stocker les objets correctement
+            $categories[] = $obj;
         }
-        return $categories;  // ✅ Retourner le bon tableau
+        return $categories;
     }
     
 
