@@ -20,10 +20,8 @@ class LoginController extends controller {
                     header("Location: /adminDash");
                     exit;
                 } elseif ($role === "cycliste") {
-                    header("Location: cycliste/profile");
+                    header("Location: /tour_de_maroc/CyclistController/cyclysteDash");
                     exit;
-
-
                 } else {
                     header("Location: /fanDash.php");
                     exit;

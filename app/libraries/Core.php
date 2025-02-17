@@ -20,7 +20,6 @@ class Core {
         $this->currentController = $this->currentController . "Controller";
         $this->currentController = new $this->currentController();
 
-
         if(isset($url[1])) {
             if(method_exists($this->currentController, $url[1])) {
                 $this->currentMethod = $url[1];
