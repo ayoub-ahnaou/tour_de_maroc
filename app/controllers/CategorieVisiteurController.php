@@ -1,4 +1,5 @@
 <?php
+
 use TourDeMaroc\App\models\categories;
 
 class CategorieVisiteurController extends Controller {

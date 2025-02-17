@@ -18,10 +18,24 @@ use TourDeMaroc\App\Libraries\Session;
                 <span class="text-gray-300 ml-2 text-xs"> -> 2025</span>
             </a>
         </div>
-        
+
         <div class="flex max-md:hidden items-center space-x-4 relative">
-            <?php $session = Session::getInstance(); ?>
-            <?php if ($session->isLoggedIn()): ?>
+            <a href="<?= URL_ROOT . "/classements/general"; ?>" class="flex items-center gap-2">
+                <span class="text-xs">Classements</span>
+            </a>
+            
+            <a href="<?= URL_ROOT . "/etapes"; ?>" class="flex items-center gap-2">
+                <span class="text-xs">Etapes</span>
+            </a>
+
+            <a href="<?= URL_ROOT . "/podium"; ?>" class="flex items-center gap-2">
+                <span class="text-xs">Podium</span>
+            </a>
+
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <a href="<?= URL_ROOT . "/profile"; ?>" class="flex items-center gap-2">
+                    <span class="text-xs">Profile</span>
+                </a>
                 <div class="relative">
                     <button id="notificationButton" class="flex items-center gap-2 focus:outline-none">
                         <img src="<?= URL_ROOT; ?>/public/assets/icons/notification.svg" class="h-5" alt="">
@@ -33,7 +47,7 @@ use TourDeMaroc\App\Libraries\Session;
                 </div>
                 <a href="<?= URL_ROOT . "/profile"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
-                    <span class="text-xs">Profile</span>
+                    <span class="text-xs"><?= htmlspecialchars($session->getUsername() ?? 'User') ?></span>
                 </a>
                 <a href="<?= URL_ROOT . "/Lougout/logout"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
@@ -48,28 +62,24 @@ use TourDeMaroc\App\Libraries\Session;
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
                     <span class="text-xs">Se connecter</span>
                 </a>
-                <a href="<?= URL_ROOT . "/signup"; ?>" class="flex items-center gap-2">
-                    <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
-                    <span class="text-xs">S'inscrire</span>
-                </a>
             <?php endif; ?>
         </div>
     </div>
 </nav>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const notificationButton = document.getElementById('notificationButton');
-    const notificationsDropdown = document.getElementById('notificationsDropdown');
-    const notificationsContainer = document.getElementById('notifications-container');
+    document.addEventListener('DOMContentLoaded', function() {
+        const notificationButton = document.getElementById('notificationButton');
+        const notificationsDropdown = document.getElementById('notificationsDropdown');
+        const notificationsContainer = document.getElementById('notifications-container');
 
-    function loadNotifications() {
-        fetch('<?= URL_ROOT ?>/notifications/get')
-            .then(response => response.json())
-            .then(data => {
-                if (data.notifications && data.notifications.length > 0) {
-                    notificationsContainer.innerHTML = data.notifications
-                        .map(notification => `
+        function loadNotifications() {
+            fetch('<?= URL_ROOT ?>/notifications/get')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.notifications && data.notifications.length > 0) {
+                        notificationsContainer.innerHTML = data.notifications
+                            .map(notification => `
                             <div class="px-4 py-2 border-b border-gray-600">
                                 <p class="text-sm">${notification.contenu}</p>
                                 ${notification.etape_id ? 
@@ -79,55 +89,55 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             </div>
                         `).join('');
-                } else {
-                    notificationsContainer.innerHTML = `
+                    } else {
+                        notificationsContainer.innerHTML = `
                         <div class="px-4 py-2 text-center text-gray-400 text-sm">
                             No notifications
                         </div>
                     `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading notifications:', error);
+                });
+        }
+
+        notificationButton?.addEventListener('click', () => {
+            notificationsDropdown.classList.toggle('hidden');
+            if (!notificationsDropdown.classList.contains('hidden')) {
+                loadNotifications();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!notificationButton?.contains(event.target) &&
+                !notificationsDropdown?.contains(event.target)) {
+                notificationsDropdown?.classList.add('hidden');
+            }
+        });
+
+        if (notificationButton) {
+            loadNotifications();
+            setInterval(loadNotifications, 60000);
+        }
+    });
+
+    function subscribeToStage(etapeId) {
+        fetch('<?= URL_ROOT ?>/notifications/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `etape_id=${etapeId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Successfully subscribed to stage notifications');
                 }
             })
             .catch(error => {
-                console.error('Error loading notifications:', error);
+                console.error('Error subscribing to stage:', error);
             });
     }
-
-    notificationButton?.addEventListener('click', () => {
-        notificationsDropdown.classList.toggle('hidden');
-        if (!notificationsDropdown.classList.contains('hidden')) {
-            loadNotifications();
-        }
-    });
-
-    document.addEventListener('click', (event) => {
-        if (!notificationButton?.contains(event.target) && 
-            !notificationsDropdown?.contains(event.target)) {
-            notificationsDropdown?.classList.add('hidden');
-        }
-    });
-
-    if (notificationButton) {
-        loadNotifications();
-        setInterval(loadNotifications, 60000);
-    }
-});
-
-function subscribeToStage(etapeId) {
-    fetch('<?= URL_ROOT ?>/notifications/subscribe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `etape_id=${etapeId}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Successfully subscribed to stage notifications');
-        }
-    })
-    .catch(error => {
-        console.error('Error subscribing to stage:', error);
-    });
-}
 </script>

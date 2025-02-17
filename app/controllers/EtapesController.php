@@ -3,19 +3,17 @@
 use TourDeMaroc\App\models\CategorieModel;
 use TourDeMaroc\App\models\EtapeModel;
 
-
 class EtapesController extends Controller {
-    public function etape($id) {
-        $etapeModel = new EtapeModel();
-        $etape = $etapeModel->getEtapeById($id); 
-        $data=compact("etape");
-        $this->view('etapes/etapeDetails',  $data);
-    }
     
     public function show($id){
         $etape = new EtapeModel();
         $etapes = $etape->getAllEtapesById($id); 
         $this->view("etapesVisiteur",compact("etapes"));
+    }
+      
+    public function etape($ordre) {
+        $etape = (new EtapeModel())->getEtapeByOrdre($ordre);
+        $this->view("etapes/etapeDetails", compact("etape"));
     }
 
 
@@ -80,8 +78,6 @@ class EtapesController extends Controller {
             // Vérification de la durée
             if (empty(trim($_POST["duree"]))) {
                 $duree_err = "La durée est requise.";
-            } elseif (!is_numeric($_POST["duree"])) {
-                $duree_err = "Veuillez entrer une valeur numérique.";
             } else {
                 $duree = trim($_POST["duree"]);
             }
@@ -94,7 +90,7 @@ class EtapesController extends Controller {
             }
 
             $res = (new EtapeModel())->createEtape($ordre, $lieu_depart, $lieu_arrive, $distance, $difficulte, $date, $duree, $categorie);
-            var_dump($res);
+            $this->redirect("/dashboard/etapes");
         }
         $categories = (new CategorieModel())->getAllCategories();
 

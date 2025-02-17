@@ -1,4 +1,5 @@
 <?php
+namespace TourDeMaroc\App\libraries;
 
 class Controller {
     public function modal($model) {
@@ -14,5 +15,21 @@ class Controller {
             echo "<br>";
             die("");
         }
+    }
+
+    protected function redirect($url, $data = []) {
+        // Build the full URL
+        $baseUrl = rtrim(URL_ROOT, '/'); // Ensure ROOT is defined in your config (e.g., 'http://example.com')
+        $url = trim($url, '/'); // Remove leading/trailing slashes
+
+        // Add query parameters if provided
+        if (!empty($data)) {
+            $queryString = http_build_query($data);
+            $url .= '?' . $queryString;
+        }
+
+        // Set the Location header and exit
+        header("Location: $baseUrl/$url");
+        exit(); // Ensure no further code is executed
     }
 }

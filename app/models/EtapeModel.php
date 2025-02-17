@@ -1,5 +1,5 @@
 <?php
-namespace TourDeMaroc\App\models;
+namespace TourDeMaroc\App\Models;
 
 use Exception;
 use PDO;
@@ -74,7 +74,14 @@ class EtapeModel {
         $etapes = [];
 
         foreach($res as $etape) {
-            $etapes[] = new Etape(
+          
+            $timeformat = explode(":", $etape["duree"]);
+            $duree = "";
+
+            if($timeformat[0] > 0) $duree .= intval($timeformat[0]) . "hours ";
+            if($timeformat[1] > 0) $duree .= intval($timeformat[1]) . "mniutes ";
+          
+          $etapes[] = new Etape(
                 (string)$etape['lieu_de_depart'],
                 (string)$etape['lieu_d_arrivee'],
                 (float)$etape['distance'],
@@ -85,8 +92,10 @@ class EtapeModel {
                 ($etape['difficulte']),
                 isset($etape['etape_id']) ? (int)$etape['etape_id'] : null,
                 (int)$etape['ordre'],
-                (string)$etape['duree']
+                $duree
             );
+
+            // $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $duree);
         }
         return $etapes;
     }
@@ -124,7 +133,7 @@ class EtapeModel {
 
     public function createEtape($ordre, $lieu_depart, $lieu_arrive, $distance, $difficulte, $date, $duree, $categorie) {
         $sql = "INSERT INTO etape (ordre, lieu_de_depart, lieu_d_arrivee, distance, difficulte, date, duree, course_id, categorie_id) 
-            VALUES (:ordre, :lieu_de_depart, :lieu_d_arrivee, :distance, :difficulte, :date, :duree, '1', :categorie)";
+            VALUES (:ordre, :lieu_de_depart, :lieu_d_arrivee, :distance, :difficulte, :date, CAST(:duree AS INTERVAL), '1', :categorie)";
         
         try {
             $stmt = $this->db->prepare($sql);
@@ -135,6 +144,44 @@ class EtapeModel {
         } catch (Exception $e) {
             throw new Exception("creation de l'etape faillée: " . $e->getMessage());
         }
+    }
+  
+    public function getTopThreeCyclists() {
+        $query = "
+            SELECT 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids,
+                SUM(ce.temps) as temps_total
+            FROM 
+                cycliste c
+                INNER JOIN cycliste_etape ce ON c.utilisateur_id = ce.cycliste_id
+            GROUP BY 
+                c.utilisateur_id,
+                c.nom_utilisateur,
+                c.email,
+                c.role,
+                c.equipe,
+                c.date_de_naissance,
+                c.nationalite,
+                c.taille,
+                c.photo,
+                c.poids
+            ORDER BY 
+                temps_total ASC
+            LIMIT 3
+        ";
+        
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getEtapeByOrdre($ordre) {
@@ -152,5 +199,50 @@ class EtapeModel {
         $etape->setCategorie($res["categorie"]);
 
         return $etape;
+    }
+
+    public function getEtapeById($etape_id) {
+        $sql = "SELECT * FROM etape WHERE etape_id = :etape_id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([":etape_id" => $etape_id]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            throw new Exception("Error getting etape by id: " . $e->getMessage());
+        }
+    }
+
+    public function maxEtapes() {
+        $stmt = $this->db->prepare("SELECT MAX(ordre) as max FROM etape");
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function getFirstThreeEtapes() {
+        $sql = "SELECT e.*, nom as categorie FROM etape e join categorie c on c.categorie_id = e.categorie_id ORDER BY ordre ASC LIMIT 3";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        $etapes = [];
+
+        foreach($res as $etape) {
+            $timeformat = explode(":", $etape["duree"]);
+            $duree = "";
+    
+            if($timeformat[0] > 0) $duree .= intval($timeformat[0]) . "hours ";
+            if($timeformat[1] > 0) $duree .= intval($timeformat[1]) . "mniutes ";
+    
+            $etapes[] = new Etape($etape["lieu_de_depart"], $etape["lieu_d_arrivee"], $etape["distance"], $etape["date"], $etape["course_id"], $etape["categorie_id"], null, $etape["difficulte"], $etape["etape_id"], $etape["ordre"], $duree);
+            $etape->setCategorie($etape["categorie"]);
+        }
+
+        return $etapes;
+    }
+
+    public function getTotalEtapesDistance() {
+        $sql = "SELECT SUM(distance) as total_distance FROM etape";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }

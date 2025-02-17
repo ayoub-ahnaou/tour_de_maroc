@@ -1,5 +1,4 @@
 <?php
-
 namespace TourDeMaroc\App\Entity;
 
 class Categorie {
