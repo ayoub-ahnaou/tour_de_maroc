@@ -1,21 +1,20 @@
 <?php
 use TourDeMaroc\App\models\users;
+use TourDeMaroc\App\Libraries\Session;
+
 
 class LoginController extends controller {
     public function index() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $mot_de_passe = $_POST['mot_de_passe'];
-    
+
             $result = users::verfierData($email, $mot_de_passe);
-            $messageKey = null; 
+            
             if ($result === true) {
-
-                $userModel = new users();
-                $user = $userModel->GetUserMail($email);
-                $role = $user["role"];
-    
-
+                $session = Session::getInstance();
+                $role = $session->get("role"); 
+                
                 if ($role === "administrateur") {
                     header("Location: /adminDash");
                     exit;
@@ -23,16 +22,14 @@ class LoginController extends controller {
                     header("Location: /tour_de_maroc/CyclistController/cyclysteDash");
                     exit;
                 } else {
-                    header("Location: /fanDash.php");
+                    header("Location: /tour_de_maroc/Fan/index");
                     exit;
                 }
             } else {
                 echo "<script>alert('$result');</script>";
             }
         }
-    
         $this->view("login");
-
     }
 
 

@@ -1,14 +1,12 @@
 <?php
 
-
-use TourDeMaroc\App\models\courses;
-
+use TourDeMaroc\App\models\categories;
 
 class CourseVisiteurController extends Controller {
     public function index() {
-        $courses = new courses();
-        $coursesList = $courses->SelectCourse(); 
-        $data = compact("coursesList");
-        $this->view("courseVisiteur", $data);
+    $categories=new categories();
+    $categoriesList = $categories->SelectCategorie(); 
+    $data = compact("categoriesList");
+    $this->view("courseVisiteur", $data );
     }
 }

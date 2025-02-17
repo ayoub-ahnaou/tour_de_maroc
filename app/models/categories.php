@@ -25,9 +25,8 @@ class categories{
 
      public function SelectCategorie() {
         $db = database::getInstance()->getConnection();
-        $sql = "SELECT * FROM categorie WHERE course_id=:course_id";
+        $sql = "SELECT * FROM categorie ";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(":course_id", $course_id);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
     

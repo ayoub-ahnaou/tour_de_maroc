@@ -4,8 +4,8 @@
         public function logout() {
             session_start();
             session_destroy();
-            header("Location:home");
+            header("Location:Login/login");
             exit;
-            $this->view('home'); 
+            $this->view('login'); 
         }
     }

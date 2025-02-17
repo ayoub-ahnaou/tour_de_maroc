@@ -16,6 +16,8 @@ class Etape {
     private $ordre;
     private $duree;
 
+    private $categorie;
+
     public function __construct($lieu_de_depart, $lieu_d_arrivee, $distance, $date, $course_id, $categorie_id, $region = null, $difficulte = null, $etape_id = null, $ordre, $duree) {
         $this->etape_id = $etape_id;
         $this->lieu_de_depart = $lieu_de_depart;
@@ -112,5 +114,13 @@ class Etape {
 
     public function setDuree($duree) {
         $this->duree = $duree;
+    }
+
+    public function setCategorie($value) {
+        $this->categorie = $value;
+    }
+
+    public function getCategorie() {
+        return $this->categorie;
     }
 }

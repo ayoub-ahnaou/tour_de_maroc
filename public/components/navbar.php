@@ -1,6 +1,15 @@
 <?php
 use TourDeMaroc\App\Libraries\Session;
 ?>
+<style>
+    .carousel {
+        -ms-overflow-style: none;  
+        scrollbar-width: none;    
+    }
+    .carousel::-webkit-scrollbar {
+        display: none;           
+    }
+</style>
 <nav class="bg-gray-600 text-white shadow-md sticky top-0 z-10">
     <div class="container mx-auto px-4 flex items-center justify-between h-16">
         <div class="flex items-center">
@@ -25,6 +34,10 @@ use TourDeMaroc\App\Libraries\Session;
                 <a href="<?= URL_ROOT . "/profile"; ?>" class="flex items-center gap-2">
                     <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
                     <span class="text-xs">Profile</span>
+                </a>
+                <a href="<?= URL_ROOT . "/Lougout/logout"; ?>" class="flex items-center gap-2">
+                    <img src="<?= URL_ROOT; ?>/public/assets/icons/user.svg" class="h-5" alt="">
+                    <span class="text-xs">Se Deconnecter</span>
                 </a>
             <?php else: ?>
                 <a href="<?= URL_ROOT . "/courseVisiteur"; ?>" class="flex items-center gap-2">
